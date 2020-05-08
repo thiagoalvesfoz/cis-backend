@@ -6,6 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,6 +19,7 @@ public class ProfissionalInput {
 	private String sobrenome;
 	
 	@NotBlank
+	@Pattern(regexp = "^[Mm|Ff]$", message = "Deve corresponder a M ou F")
 	private String sexo;
 	
 	@NotBlank

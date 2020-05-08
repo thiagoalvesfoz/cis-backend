@@ -1,7 +1,10 @@
 package br.uniamerica.cis.api.exceptionhandler;
 
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.uniamerica.cis.domain.exception.BusinessRuleException;
+import br.uniamerica.cis.domain.exception.ResourceNotFoundException;
 
 @ControllerAdvice //monitora exceptions lançadas na camada controller
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
@@ -25,6 +29,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		var body = new ResponseApi(status.value(), OffsetDateTime.now(), ex.getMessage());
 		return super.handleExceptionInternal(ex, body, new HttpHeaders(), status, request);
 		
+	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<StandardError> resouceNotFound(ResourceNotFoundException ex, 
+			HttpServletRequest request){		
+		
+		var error = "Recurso Não encontrado";
+		var status = HttpStatus.NOT_FOUND;
+		var path = request.getRequestURI();
+		var err = new StandardError(Instant.now(), status.value(), error, ex.getMessage(), path);
+		
+		return ResponseEntity.status(status).body(err);	
 	}
 	
 	@Override

@@ -1,7 +1,6 @@
 package br.uniamerica.cis.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.uniamerica.cis.api.dto.UsuarioDTO;
 import br.uniamerica.cis.api.dto.input.UsuarioInput;
+import br.uniamerica.cis.domain.exception.ResourceNotFoundException;
 import br.uniamerica.cis.domain.model.Usuario;
 import br.uniamerica.cis.domain.repository.UsuarioRepository;
 import br.uniamerica.cis.domain.service.UsuarioService;
@@ -53,13 +53,10 @@ public class UsuarioController {
 	@GetMapping("/{usuarioId}")
 	private ResponseEntity <UsuarioDTO> buscar(@PathVariable Long usuarioId){
 		
-		Optional <Usuario> user = usuarioRepository.findById(usuarioId);
+		Usuario user = usuarioRepository.findById(usuarioId)
+				.orElseThrow(() -> new ResourceNotFoundException(usuarioId));
 		
-		if(!user.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		return ResponseEntity.ok(toModel(user.get()));
+		return ResponseEntity.ok().body(toModel(user));
 	}
 	
 	//converte uma objeto entidade para um modelo representacional

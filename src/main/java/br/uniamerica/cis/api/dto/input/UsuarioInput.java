@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -15,11 +17,13 @@ public class UsuarioInput {
 	@NotBlank
 	private String sobrenome;
 	
+	@Past
 	@NotNull
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date dataNascimento;
 	
 	@NotBlank
+	@Pattern(regexp = "^[Mm|Ff]$", message = "Deve corresponder a M ou F")
 	private String sexo;
 	
 	@NotBlank

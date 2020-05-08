@@ -75,7 +75,7 @@ public class Usuario {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(String sexo) {	
 		this.sexo = sexo;
 	}
 
