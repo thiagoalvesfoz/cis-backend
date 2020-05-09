@@ -38,6 +38,27 @@ public class Usuario {
 	
 	public Usuario() {
 	}
+	
+	
+
+	public Usuario(String nome, 
+			String sobrenome, 
+			Date dataNascimento, 
+			String sexo, 
+			String telefone, 
+			String email,
+			StatusUsuario status) {
+		
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.dataNascimento = dataNascimento;
+		this.sexo = sexo;
+		this.telefone = telefone;
+		this.email = email;
+		this.status = status;
+	}
+
+
 
 	public Long getId() {
 		return id;
