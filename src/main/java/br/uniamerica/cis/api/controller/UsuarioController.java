@@ -23,7 +23,10 @@ import br.uniamerica.cis.domain.exception.ResourceNotFoundException;
 import br.uniamerica.cis.domain.model.Usuario;
 import br.uniamerica.cis.domain.repository.UsuarioRepository;
 import br.uniamerica.cis.domain.service.UsuarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api("Usuários")
 @RestController // Pq estou utilizando Rest
 @RequestMapping("/usuarios")// Busca os usuarios
 public class UsuarioController {
@@ -37,19 +40,22 @@ public class UsuarioController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@ApiOperation("Cria um novo usuário")
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED) // ele retorna 201
-	private UsuarioDTO adicionar(@Valid @RequestBody UsuarioInput user) { //Ele add e retorna cliente
+	@ResponseStatus(HttpStatus.CREATED) 
+	private UsuarioDTO adicionar(@Valid @RequestBody UsuarioInput user) {
 		Usuario novoUsuario = toEntity(user);
 		return toModel(usuarioService.salvar(novoUsuario));
-		//return toModel(novoUsuario);
 	}
-
+	
+	@ApiOperation("Retorna todos os usuários")
 	@GetMapping
 	private List <UsuarioDTO> listar(){
+		// fazer paginação ...
 		return toCollectionModel(usuarioRepository.findAll());
 	}
 	
+	@ApiOperation("Retorna um usuário por id")
 	@GetMapping("/{usuarioId}")
 	private ResponseEntity <UsuarioDTO> buscar(@PathVariable Long usuarioId){
 		
@@ -58,6 +64,9 @@ public class UsuarioController {
 		
 		return ResponseEntity.ok().body(toModel(user));
 	}
+	
+	
+	
 	
 	//converte uma objeto entidade para um modelo representacional
 	private UsuarioDTO toModel(Usuario user) {

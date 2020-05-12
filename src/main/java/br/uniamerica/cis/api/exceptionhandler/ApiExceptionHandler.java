@@ -1,7 +1,6 @@
 package br.uniamerica.cis.api.exceptionhandler;
 
 import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +25,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(BusinessRuleException.class)
 	public ResponseEntity<Object> handleBusinessError(BusinessRuleException ex, WebRequest request){
 		var status = HttpStatus.BAD_REQUEST;
-		var body = new ResponseApi(status.value(), OffsetDateTime.now(), ex.getMessage());
+		var body = new ResponseApi(status.value(), Instant.now(), ex.getMessage());
 		return super.handleExceptionInternal(ex, body, new HttpHeaders(), status, request);
 		
 	}
@@ -48,10 +47,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
 		var statusHttp = status.value();
-		var dateAndTime = OffsetDateTime.now();
+		var timestamp = Instant.now();
 		var title = "Um ou mais campos estão inválidos. "
 				+ "Faça o preenchimento correto e tente novamente";
-		var body = new ResponseApi(statusHttp, dateAndTime, title);
+		var body = new ResponseApi(statusHttp, timestamp, title);
 		var fields = new ArrayList<ResponseApi.Field>();
 		
 		for (ObjectError erro : ex.getBindingResult().getAllErrors()) {

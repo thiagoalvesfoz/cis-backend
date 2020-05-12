@@ -23,7 +23,10 @@ import br.uniamerica.cis.api.dto.input.ProfissionalInput;
 import br.uniamerica.cis.domain.model.Profissional;
 import br.uniamerica.cis.domain.repository.ProfissionalRepository;
 import br.uniamerica.cis.domain.service.ProfissionalService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api("Profissionais")
 @RestController
 @RequestMapping("/profissionais")
 public class ProfissionalController {
@@ -37,17 +40,21 @@ public class ProfissionalController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@ApiOperation("Cria um novo profissional")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	private Profissional criar(@Valid @RequestBody ProfissionalInput p) {
 		return pService.adicionar(toEntity(p));
 	}
 	
+	@ApiOperation("Retorna todos os profissionais")
 	@GetMapping
 	private List<ProfissionalDTO> listar(){
+		// fazer paginação aqui. motivo: economizar banda
 		return toCollectionModel(pRepository.findAll());
 	}
 	
+	@ApiOperation("Busca um profissional por id")
 	@GetMapping("{profissionalId}")
 	private ResponseEntity<ProfissionalDTO> buscar(@PathVariable Long profissionalId) {
 		

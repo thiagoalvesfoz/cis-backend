@@ -1,8 +1,9 @@
 package br.uniamerica.cis.api.exceptionhandler;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -10,16 +11,18 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ResponseApi {
 	
 	private Integer statusHttp;
-	private OffsetDateTime dateAndTime;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant timestamp;
 	private String title;
 	private List<Field> fields;
 	
 	public ResponseApi() {
 	}
 	
-	public ResponseApi(Integer statusHttp, OffsetDateTime dateAndTime, String title) {
+	public ResponseApi(Integer statusHttp, Instant timestamp, String title) {
 		this.statusHttp = statusHttp;
-		this.dateAndTime = dateAndTime;
+		this.timestamp = timestamp;
 		this.title = title;
 	}
 
@@ -31,12 +34,12 @@ public class ResponseApi {
 		this.statusHttp = statusHttp;
 	}
 
-	public OffsetDateTime getDateAndTime() {
-		return dateAndTime;
+	public Instant getTimestamp() {
+		return timestamp;
 	}
 
-	public void setDateAndTime(OffsetDateTime dateAndTime) {
-		this.dateAndTime = dateAndTime;
+	public void setTimestamp(Instant timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public String getTitle() {
