@@ -25,7 +25,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(BusinessRuleException.class)
 	public ResponseEntity<Object> handleBusinessError(BusinessRuleException ex, WebRequest request){
 		var status = HttpStatus.BAD_REQUEST;
-		var body = new ResponseApi(status.value(), Instant.now(), ex.getMessage());
+		var path = request.getDescription(false).substring(4);
+		var body = new ResponseApi(status.value(), Instant.now(), ex.getMessage(), path);
 		return super.handleExceptionInternal(ex, body, new HttpHeaders(), status, request);
 		
 	}
@@ -50,7 +51,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		var timestamp = Instant.now();
 		var title = "Um ou mais campos estão inválidos. "
 				+ "Faça o preenchimento correto e tente novamente";
-		var body = new ResponseApi(statusHttp, timestamp, title);
+		var path = request.getDescription(false).substring(4);
+		var body = new ResponseApi(statusHttp, timestamp, title, path);
 		var fields = new ArrayList<ResponseApi.Field>();
 		
 		for (ObjectError erro : ex.getBindingResult().getAllErrors()) {

@@ -15,15 +15,17 @@ public class ResponseApi {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant timestamp;
 	private String title;
+	private String path;
 	private List<Field> fields;
 	
 	public ResponseApi() {
 	}
 	
-	public ResponseApi(Integer statusHttp, Instant timestamp, String title) {
+	public ResponseApi(Integer statusHttp, Instant timestamp, String title, String path) {
 		this.statusHttp = statusHttp;
 		this.timestamp = timestamp;
 		this.title = title;
+		this.path = path;
 	}
 
 	public Integer getStatusHttp() {
@@ -58,6 +60,13 @@ public class ResponseApi {
 		this.fields = fields;
 	}
 
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 	public static class Field {
 		
 		private String name;
