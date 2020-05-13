@@ -1,10 +1,9 @@
 package br.uniamerica.cis.api.dto.input;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
@@ -29,12 +28,11 @@ public class ProfissionalInput {
 	@NotBlank
 	private String email;
 	
-	@NotNull
 	private String crm;
 	
 	@Past
 	@JsonFormat(pattern = "dd-MM-yyyy")
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	
 	public String getNome() {
 		return nome;
@@ -54,10 +52,10 @@ public class ProfissionalInput {
 	public void setSexo(String sexo) {
 		this.sexo = sexo.toUpperCase();
 	}
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 	public String getTelefone() {

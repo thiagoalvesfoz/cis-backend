@@ -1,6 +1,6 @@
 package br.uniamerica.cis.domain.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 
@@ -10,13 +10,15 @@ import br.uniamerica.cis.domain.model.enumeration.StatusUsuario;
 public class Profissional extends Usuario{
 	
 	private Long crm;
+	private String tipoProfissional;
+	private String descricao;
 	
 	public Profissional() {
 	}
 
 	public Profissional(String nome, 
 			String sobrenome, 
-			Date dataNascimento, 
+			LocalDate dataNascimento, 
 			String sexo, 
 			String telefone, 
 			String email,
@@ -28,7 +30,6 @@ public class Profissional extends Usuario{
 	}
 
 
-
 	public Long getCrm() {
 		return crm;
 	}
@@ -36,6 +37,20 @@ public class Profissional extends Usuario{
 	public void setCrm(Long crm) {
 		this.crm = crm;
 	}
-	
-	
+
+	public String getTipoProfissional() {
+		return tipoProfissional;
+	}
+
+	public void setTipoProfissional(String tipoProfissional) {
+		this.tipoProfissional = tipoProfissional;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 }

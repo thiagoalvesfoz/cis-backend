@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.uniamerica.cis.api.dto.PacienteDTO;
 import br.uniamerica.cis.api.dto.input.PacienteInput;
 import br.uniamerica.cis.domain.exception.ResourceNotFoundException;
+import br.uniamerica.cis.domain.model.Endereco;
 import br.uniamerica.cis.domain.model.Paciente;
 import br.uniamerica.cis.domain.repository.PacienteRepository;
 import br.uniamerica.cis.domain.service.PacienteService;
@@ -31,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("pacientes")
 public class PacienteController {
 	
-	@Autowired // serve pra injecao de idependencia, as classes ficam menos dependentes uma da outro desacoplota
+	@Autowired
 	private PacienteRepository usuarioRepository;
 	
 	@Autowired
@@ -63,6 +64,15 @@ public class PacienteController {
 				.orElseThrow(() -> new ResourceNotFoundException(pacienteId));
 		
 		return ResponseEntity.ok().body(toModel(user));
+	}
+	
+	@GetMapping("/{id}/endereco")
+	private ResponseEntity<Endereco> findEndereco(@PathVariable Long id){
+		
+		Paciente user = usuarioRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id));
+		
+		return ResponseEntity.ok().body(user.getEndereco());
 	}
 	
 	

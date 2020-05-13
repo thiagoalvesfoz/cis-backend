@@ -1,6 +1,6 @@
 package br.uniamerica.cis.api.dto.input;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -20,7 +20,7 @@ public class UsuarioInput {
 	@Past
 	@NotNull
 	@JsonFormat(pattern="dd-MM-yyyy")
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	
 	@NotBlank
 	@Pattern(regexp = "^[Mm|Ff]$", message = "Deve corresponder a M ou F")
@@ -51,11 +51,11 @@ public class UsuarioInput {
 		this.sobrenome = sobrenome;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

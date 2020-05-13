@@ -1,6 +1,6 @@
 package br.uniamerica.cis.api.dto.input;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -8,7 +8,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
+import org.modelmapper.ModelMapper;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import br.uniamerica.cis.domain.model.Endereco;
 
 public class PacienteInput {
 	
@@ -16,26 +20,22 @@ public class PacienteInput {
 	private String nome;
 	@NotBlank
 	private String sobrenome;
-	
 	@Past
 	@NotNull
 	@JsonFormat(pattern="dd-MM-yyyy")
-	private Date dataNascimento;
-	
+	private LocalDate dataNascimento;
 	@NotBlank
 	@Pattern(regexp = "^[Mm|Ff]$", message = "Deve corresponder a M ou F")
 	private String sexo;
-	
 	@NotBlank
 	private String telefone;
-	
 	@Email
 	private String email;
-	
+//	@CPF
 	@NotBlank
 	private String cpf;
-	
 	private String apelido;
+	private EnderecoInput endereco;
 
 	public PacienteInput() {
 	}
@@ -56,11 +56,11 @@ public class PacienteInput {
 		this.sobrenome = sobrenome;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -102,6 +102,22 @@ public class PacienteInput {
 
 	public void setApelido(String apelido) {
 		this.apelido = apelido;
+	}
+
+	public Endereco getEndereco() {
+		return toEntity(endereco);
+	}
+
+	public void setEndereco(EnderecoInput endereco) {
+		this.endereco = endereco;
+	}
+	
+	private Endereco toEntity(EnderecoInput endereco) {
+		
+		if(endereco == null) return null;
+		
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper.map(endereco, Endereco.class);
 	}
 }
 

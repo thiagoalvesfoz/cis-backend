@@ -1,7 +1,8 @@
 package br.uniamerica.cis.domain.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -12,10 +13,13 @@ public class Paciente extends Usuario {
 	
 	private String cpf;
 	private String apelido;
+	
+	@OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
+	private Endereco endereco;
 
 	public Paciente(String nome, 
 			String sobrenome, 
-			Date dataNascimento, 
+			LocalDate dataNascimento, 
 			String sexo, 
 			String telefone, 
 			String email,
@@ -29,9 +33,6 @@ public class Paciente extends Usuario {
 		this.apelido = apelido;
 		this.endereco = endereco;
 	}
-
-	@OneToOne
-	private Endereco endereco;
 	
 	public Paciente() {
 	}

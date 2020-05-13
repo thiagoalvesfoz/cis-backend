@@ -18,13 +18,18 @@ public class UsuarioService  {
 	
 	public Usuario salvar(Usuario user) {
 		
+		validateUserEmail(user);
+		
+		user.setStatus(StatusUsuario.ATIVO);
+		return uRepository.save(user);
+	}
+	
+	protected void validateUserEmail(Usuario user) {
+		
 		Optional<Usuario> existente = uRepository.findByEmail(user.getEmail());
 		
 		if(existente.isPresent())
 			throw new BusinessRuleException("Já existe um usuário com este e-mail cadastrado. E-mail: "
 					+ existente.get().getEmail());
-		
-		user.setStatus(StatusUsuario.ATIVO);
-		return uRepository.save(user);
 	}
 }

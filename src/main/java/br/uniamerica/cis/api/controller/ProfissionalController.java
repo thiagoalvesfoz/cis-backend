@@ -43,8 +43,8 @@ public class ProfissionalController {
 	@ApiOperation("Cria um novo profissional")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	private Profissional criar(@Valid @RequestBody ProfissionalInput p) {
-		return pService.adicionar(toEntity(p));
+	private ProfissionalDTO criar(@Valid @RequestBody ProfissionalInput p) {
+		return toModel(pService.adicionar(toEntity(p)));
 	}
 	
 	@ApiOperation("Retorna todos os profissionais")

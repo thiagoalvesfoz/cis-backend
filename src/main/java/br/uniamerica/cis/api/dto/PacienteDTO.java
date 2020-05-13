@@ -1,6 +1,6 @@
 package br.uniamerica.cis.api.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -8,13 +8,13 @@ import br.uniamerica.cis.domain.model.Endereco;
 
 public class PacienteDTO {
 	
-	private String id;
+	private Long id;
 	private String nome;
 	private String sobrenome;
 	private String sexo;
 	
 	@JsonFormat(pattern = "dd-MM-yyyy")
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	private String email;
 	private String telefone;
 	
@@ -23,11 +23,11 @@ public class PacienteDTO {
 	
 	private Endereco endereco;
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -50,11 +50,11 @@ public class PacienteDTO {
 		this.sobrenome = sobrenome;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

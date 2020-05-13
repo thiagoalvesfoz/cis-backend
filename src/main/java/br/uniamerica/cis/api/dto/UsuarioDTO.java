@@ -1,6 +1,6 @@
 package br.uniamerica.cis.api.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,7 +12,7 @@ public class UsuarioDTO {
 	private String sexo;
 	
 	@JsonFormat(pattern = "dd-MM-yyyy")
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	private String email;
 	private String telefone;
 	
@@ -43,11 +43,11 @@ public class UsuarioDTO {
 		this.sobrenome = sobrenome;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

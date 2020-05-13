@@ -1,6 +1,6 @@
 package br.uniamerica.cis.domain.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +28,7 @@ public class Usuario {
 	private String sobrenome;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	private String sexo;
 	private String telefone;
 	private String email;
@@ -43,7 +43,7 @@ public class Usuario {
 
 	public Usuario(String nome, 
 			String sobrenome, 
-			Date dataNascimento, 
+			LocalDate dataNascimento, 
 			String sexo, 
 			String telefone, 
 			String email,
@@ -84,11 +84,11 @@ public class Usuario {
 		this.sobrenome = sobrenome;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
