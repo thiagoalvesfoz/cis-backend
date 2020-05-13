@@ -9,11 +9,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import br.uniamerica.cis.domain.model.Paciente;
 import br.uniamerica.cis.domain.model.Profissional;
-import br.uniamerica.cis.domain.model.Usuario;
 import br.uniamerica.cis.domain.model.enumeration.StatusUsuario;
+import br.uniamerica.cis.domain.repository.PacienteRepository;
 import br.uniamerica.cis.domain.repository.ProfissionalRepository;
-import br.uniamerica.cis.domain.repository.UsuarioRepository;
 
 @Configuration
 @Profile("test")
@@ -22,41 +22,41 @@ public class TestConfig implements CommandLineRunner{
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	
 	@Autowired
-	private UsuarioRepository uRepository;
+	private ProfissionalRepository pRepository;
 	
 	@Autowired
-	private ProfissionalRepository pRepository;
+	private PacienteRepository pacienteRepository;
 	
 	public void run(String...args) {
 		try {
-			users();
+			pacientes();
 			profissionais();
 		}catch(ParseException ex) {
 			ex.printStackTrace();
 		}
 	}
 	
-	private void users() throws ParseException {
+	private void pacientes() throws ParseException {
 		
-		Usuario u1 = new Usuario("Maria", "Brown", sdf.parse("13-03-1982"), "F", 
-				"977777777", "maria@brown.com", StatusUsuario.ATIVO);
+		Paciente u1 = new Paciente("Maria", "Brown", sdf.parse("13-03-1982"), "F", 
+				"977777777", "maria@brown.com", StatusUsuario.ATIVO, "12354398723", "MariDB", null);
 		
-		Usuario u2 = new Usuario("Alex", "Green", sdf.parse("19-05-1980"), "M", 
-				"9777888888", "alex@green.com", StatusUsuario.ATIVO);
+		Paciente u2 = new Paciente("Alex", "Green", sdf.parse("19-05-1980"), "M", 
+				"9777888888", "alex@green.com", StatusUsuario.ATIVO, "43476387629", null, null);
 		
-		Usuario u3 = new Usuario("Sagan", "Santhell", sdf.parse("24-01-1990"), "M", 
-				"9797979797", "sagan@santhell.com", StatusUsuario.ATIVO);
+		Paciente u3 = new Paciente("Sagan", "Santhell", sdf.parse("24-01-1990"), "M", 
+				"9797979797", "sagan@santhell.com", StatusUsuario.ATIVO, "21029838299", null, null);
 		
-		Usuario u4 = new Usuario("Pyro", "Thingol", sdf.parse("15-10-1995"), "M", 
-				"9777888888", "pyro@thingol.com", StatusUsuario.ATIVO);
+		Paciente u4 = new Paciente("Pyro", "Thingol", sdf.parse("15-10-1995"), "M", 
+				"9777888888", "pyro@thingol.com", StatusUsuario.ATIVO, "54346476433", "Pyrol", null);
 		
-		Usuario u5 = new Usuario("Hamilton", "Santos", sdf.parse("27-03-1965"), "M", 
-				"9885555558", "hamilton@santos.com", StatusUsuario.ATIVO);
+		Paciente u5 = new Paciente("Hamilton", "Santos", sdf.parse("27-03-1965"), "M", 
+				"9885555558", "hamilton@santos.com", StatusUsuario.ATIVO, "232", "Milton", null);
 		
-		Usuario u6 = new Usuario("Eduarda", "Fernandes", sdf.parse("07-06-1997"), "F", 
-				"9885444467", "eduarda@fernandes.com", StatusUsuario.ATIVO);
+		Paciente u6 = new Paciente("Eduarda", "Fernandes", sdf.parse("07-06-1997"), "F", 
+				"9885444467", "eduarda@fernandes.com", StatusUsuario.ATIVO, "12354398709", "Eduardo", null);
 		
-		uRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6));
+		pacienteRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6));
 	}
 	
 	private void profissionais() throws ParseException {
@@ -80,6 +80,4 @@ public class TestConfig implements CommandLineRunner{
 		
 		pRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
 	}
-	
-	
 }

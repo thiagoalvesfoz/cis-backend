@@ -52,7 +52,7 @@ public class ProfissionalInput {
 		return sexo;
 	}
 	public void setSexo(String sexo) {
-		this.sexo = sexo;
+		this.sexo = sexo.toUpperCase();
 	}
 	public Date getDataNascimento() {
 		return dataNascimento;

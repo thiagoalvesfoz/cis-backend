@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class UsuarioInput {
+public class PacienteInput {
 	
 	@NotBlank
 	private String nome;
@@ -31,8 +31,13 @@ public class UsuarioInput {
 	
 	@Email
 	private String email;
+	
+	@NotBlank
+	private String cpf;
+	
+	private String apelido;
 
-	public UsuarioInput() {
+	public PacienteInput() {
 	}
 	
 	public String getNome() {
@@ -81,6 +86,22 @@ public class UsuarioInput {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getApelido() {
+		return apelido;
+	}
+
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
 	}
 }
 

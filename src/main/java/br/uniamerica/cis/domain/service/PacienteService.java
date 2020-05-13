@@ -6,25 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.uniamerica.cis.domain.exception.BusinessRuleException;
-import br.uniamerica.cis.domain.model.Usuario;
+import br.uniamerica.cis.domain.model.Paciente;
 import br.uniamerica.cis.domain.model.enumeration.StatusUsuario;
-import br.uniamerica.cis.domain.repository.UsuarioRepository;
+import br.uniamerica.cis.domain.repository.PacienteRepository;
 
 @Service
-public class UsuarioService  {
+public class PacienteService  {
 	
 	@Autowired
-	private UsuarioRepository uRepository;
+	private PacienteRepository pRepository;
 	
-	public Usuario salvar(Usuario user) {
+	public Paciente salvar(Paciente paciente) {
 		
-		Optional<Usuario> existente = uRepository.findByEmail(user.getEmail());
+		Optional<Paciente> existente = pRepository.findByEmail(paciente.getEmail());
 		
 		if(existente.isPresent())
 			throw new BusinessRuleException("Já existe um usuário com este e-mail cadastrado. E-mail: "
 					+ existente.get().getEmail());
 		
-		user.setStatus(StatusUsuario.ATIVO);
-		return uRepository.save(user);
+		paciente.setStatus(StatusUsuario.ATIVO);
+		return pRepository.save(paciente);
 	}
 }

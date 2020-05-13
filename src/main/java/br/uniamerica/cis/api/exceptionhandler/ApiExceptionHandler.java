@@ -19,13 +19,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import br.uniamerica.cis.domain.exception.BusinessRuleException;
 import br.uniamerica.cis.domain.exception.ResourceNotFoundException;
 
-@ControllerAdvice //monitora exceptions lançadas na camada controller
+@ControllerAdvice //monitors exceptions launched in the Controller.
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(BusinessRuleException.class)
 	public ResponseEntity<Object> handleBusinessError(BusinessRuleException ex, WebRequest request){
 		var status = HttpStatus.BAD_REQUEST;
-		var path = request.getDescription(false).substring(4);
+		var path = request.getDescription(false).substring(4); //try to do casting for ServletWebRequest
 		var body = new ResponseApi(status.value(), Instant.now(), ex.getMessage(), path);
 		return super.handleExceptionInternal(ex, body, new HttpHeaders(), status, request);
 		
