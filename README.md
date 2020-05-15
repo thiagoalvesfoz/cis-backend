@@ -10,30 +10,59 @@ Recomendo utilizar alguma IDE [Spring Tools](https://spring.io/tools).
 
 ```
 - JDK 11
-- Wamp
+- H2 Database
 - Postman
-- WorkBench (Opcional)
 ```
+
+## Clonando e configurando o projeto pele Eclipse STS
+- - -
+
+1. #### Fork do projeto:  
+1.1. Clique em `FORK` ou [clique aqui](https://github.com/thiagoalvesfoz/cis-backend/fork "Fork do cis-backend");  
+1.2. Uma cópia do projeto será feita e você será redirecionado para o seu perfil;    
+1.3. Localize o projeto no seu repositório e clique em clone. 
+
+2. #### Clone seu fork pelo Eclipse:
+2.1. Abra seu Eclipse;  
+2.2. Acesse `File > Import...`
+2.3. Escolha a opção `Projects from Git`
+2.4. Escolha a opção `Clone URI`;  
+    `Os campos referente a localização devem ser preenchidos automaticamente. Caso contrário, retorne ao item 1.3.`    
+2.5. Clique em Next;  
+2.6. Em `Local destination` você pode alterar o local onde o projeto será clonado, definindo por exemplo seu workspace;  
+2.7. Em `Select a wizard to use importing projects` escolha a opção `Import as general project`;  
+2.8. Finish.
+
+3. #### Configurando como Maven Project:
+3.1. Clique com o botão direito sobre o projeto e escolha a opção `Configure > Convert to Maven Project`;
+3.2. Espere o download de todas as dependecias do projeto;
+
+
+Se tudo ocorreu conforme o esperado você está pronto para executar o projeto.
+- - -
 
 ### Configurações de Persistência de Dados
 
-Para configurar o banco de dados com o Spring, abra o arquivo **application.properties** que está no diretório 
-**_src/main/resourse/_** e adicione as seguintes linhas. 
+Para configurar o banco de dados H2, abra o arquivo **application-test.properties** que está no diretório 
+**_src/main/resourse/_**. 
 
 ```
-spring.datasource.url=jdbc:mysql://localhost:3308/projeto_cis?createDatabaseIfNotExist=true&serverTimezone=UTC
-spring.datasource.username=root
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.username=test
 spring.datasource.password=
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2
 ```
-**ATENÇÃO:** a porta default do banco de dados é 3306, no meu caso a porta utilizada é **3308** porque na porta default
-foi configurado para o banco de dados mariaDB de maneira automática pelo próprio WAMP durante a sua instalação.
+**URL DO BANCO** localhost:8080/h2
 
-
+- - -
 ## Tecnologias Utilizadas
 ```
 * Spring Boot
 * Spring Data JPA
 * Apache Tomcat
+* H2 Database
 * Mavem
 * Postman
 * MySQL
