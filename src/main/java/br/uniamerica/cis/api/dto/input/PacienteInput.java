@@ -30,6 +30,7 @@ public class PacienteInput {
 	@NotBlank
 	private String telefone;
 	@Email
+	@NotBlank
 	private String email;
 //	@CPF
 	@NotBlank

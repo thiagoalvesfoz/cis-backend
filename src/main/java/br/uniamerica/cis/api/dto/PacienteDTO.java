@@ -20,6 +20,7 @@ public class PacienteDTO {
 	
 	private String cpf;
 	private String apelido;
+	private String avatar;
 	
 	private Endereco endereco;
 	
@@ -104,5 +105,13 @@ public class PacienteDTO {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 }

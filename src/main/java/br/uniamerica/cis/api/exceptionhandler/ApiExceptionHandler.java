@@ -35,10 +35,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<StandardError> resouceNotFound(ResourceNotFoundException ex, 
 			HttpServletRequest request){		
 		
-		var error = "Recurso Não encontrado";
 		var status = HttpStatus.NOT_FOUND;
 		var path = request.getRequestURI();
-		var err = new StandardError(Instant.now(), status.value(), error, ex.getMessage(), path);
+		var err = new StandardError(Instant.now(), status.value(), ex.getMessage(), path);
 		
 		return ResponseEntity.status(status).body(err);	
 	}

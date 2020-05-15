@@ -1,5 +1,8 @@
 package br.uniamerica.cis.api.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +10,8 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +35,7 @@ import io.swagger.annotations.ApiOperation;
 @Api("Pacientes")
 @RestController
 @RequestMapping("pacientes")
-public class PacienteController {
+public class PacienteController implements ControllerMethods<PacienteDTO>{
 	
 	@Autowired
 	private PacienteRepository usuarioRepository;
@@ -44,26 +49,28 @@ public class PacienteController {
 	@ApiOperation("Cria um novo paciente")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) 
-	private PacienteDTO adicionar(@Valid @RequestBody PacienteInput user) {
-		Paciente novoPaciente = toEntity(user);
-		return toModel(pacienteService.salvar(novoPaciente));
+	private EntityModel<PacienteDTO> adicionar(@Valid @RequestBody PacienteInput user) {
+		return toModel(pacienteService.salvar(toEntity(user)));
 	}
 	
 	@ApiOperation("Retorna todos os pacientes")
 	@GetMapping
-	private List <PacienteDTO> listar(){
+	public CollectionModel<EntityModel<PacienteDTO>> all(){
 		// fazer paginação ...
-		return toCollectionModel(usuarioRepository.findAll());
+		List<EntityModel<PacienteDTO>> p = toCollectionModel(usuarioRepository.findAll());
+		
+		return new CollectionModel<>(p, 
+				linkTo(methodOn(PacienteController.class).all()).withSelfRel());
 	}
 	
 	@ApiOperation("Retorna um paciente por id")
 	@GetMapping("/{pacienteId}")
-	private ResponseEntity <PacienteDTO> buscar(@PathVariable Long pacienteId){
+	public EntityModel<PacienteDTO> one(@PathVariable Long pacienteId){
 		
 		Paciente user = usuarioRepository.findById(pacienteId)
 				.orElseThrow(() -> new ResourceNotFoundException(pacienteId));
 		
-		return ResponseEntity.ok().body(toModel(user));
+		return toModel(user);
 	}
 	
 	@GetMapping("/{id}/endereco")
@@ -76,19 +83,19 @@ public class PacienteController {
 	}
 	
 	
-	//converte uma objeto entidade para um modelo representacional
-	private PacienteDTO toModel(Paciente user) {
-		return modelMapper.map(user, PacienteDTO.class);
-	}
-	
-	//converte um modelo representacional para um objeto entitade
 	private Paciente toEntity(PacienteInput user) {
 		return modelMapper.map(user, Paciente.class);
 	}
 	
-	private List<PacienteDTO> toCollectionModel(List<Paciente> users){
-		return users.stream().map( usuario -> toModel(usuario))
-				.collect(Collectors.toList());
+	public EntityModel<PacienteDTO> toModel(Paciente entity) {
+		PacienteDTO dtoEntity = modelMapper.map(entity, PacienteDTO.class);
+		return new EntityModel<>(dtoEntity, 
+				linkTo(methodOn(PacienteController.class).one(dtoEntity.getId())).withSelfRel(),
+				linkTo(methodOn(PacienteController.class).all()).withRel("pacientes"));	
+	}
+	
+	public List<EntityModel<PacienteDTO>> toCollectionModel(List<Paciente> list){
+		return list.stream().map(this::toModel).collect(Collectors.toList());
 	}
 	
 	

@@ -1,6 +1,6 @@
 package br.uniamerica.cis.api.dto;
 
-public class ProfissionalDTO {
+public class ProfissionalDTO implements DTO {
 	
 	private Long id;
 	private String nome;
@@ -8,7 +8,10 @@ public class ProfissionalDTO {
 	private String crm;
 	private String email;
 	private String telefone;
+	private String especialidadeNome;
+	private String avatar;
 	
+	@Override
 	public Long getId() {
 		return id;
 	}
@@ -55,5 +58,21 @@ public class ProfissionalDTO {
 	
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getEspecialidadeNome() {
+		return especialidadeNome;
+	}
+
+	public void setEspecialidadeNome(String especialidadeNome) {
+		this.especialidadeNome = especialidadeNome;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 }

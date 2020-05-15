@@ -18,7 +18,7 @@ import br.uniamerica.cis.domain.model.enumeration.StatusUsuario;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario {
+public class Usuario{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,20 +26,19 @@ public class Usuario {
 	private Long id;
 	private String nome;
 	private String sobrenome;
-	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private LocalDate dataNascimento;
 	private String sexo;
 	private String telefone;
 	private String email;
+	private String password;
+	private String avatar;
 	
 	@Enumerated(EnumType.STRING)
 	private StatusUsuario status;
 	
 	public Usuario() {
 	}
-	
-	
 
 	public Usuario(String nome, 
 			String sobrenome, 
@@ -47,6 +46,8 @@ public class Usuario {
 			String sexo, 
 			String telefone, 
 			String email,
+			String password,
+			String avatar,
 			StatusUsuario status) {
 		
 		this.nome = nome;
@@ -55,9 +56,10 @@ public class Usuario {
 		this.sexo = sexo;
 		this.telefone = telefone;
 		this.email = email;
+		this.password = password;
+		this.avatar = avatar;
 		this.status = status;
 	}
-
 
 
 	public Long getId() {
@@ -123,6 +125,28 @@ public class Usuario {
 	public void setStatus(StatusUsuario status) {
 		this.status = status;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+
 
 	@Override
 	public int hashCode() {

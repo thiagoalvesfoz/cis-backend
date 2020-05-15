@@ -25,10 +25,12 @@ public class Paciente extends Usuario {
 			String email,
 			StatusUsuario status,
 			String cpf, 
+			String password,
+			String avatar,
 			String apelido, 
 			Endereco endereco) {
 		
-		super(nome, sobrenome, dataNascimento, sexo, telefone, email, status);
+		super(nome, sobrenome, dataNascimento, sexo, telefone, email, password, avatar, status);
 		this.cpf = cpf;
 		this.apelido = apelido;
 		this.endereco = endereco;
