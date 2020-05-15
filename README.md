@@ -10,7 +10,6 @@ Recomendo utilizar alguma IDE [Spring Tools](https://spring.io/tools).
 
 ```
 - JDK 11
-- H2 Database
 - Postman
 ```
 
