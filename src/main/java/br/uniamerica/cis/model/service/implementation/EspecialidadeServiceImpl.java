@@ -1,20 +1,21 @@
 package br.uniamerica.cis.model.service.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.uniamerica.cis.infrastructure.repository.EspecialidadeRepository;
 import br.uniamerica.cis.model.entity.Especialidade;
 import br.uniamerica.cis.model.exception.ResourceNotFoundException;
 import br.uniamerica.cis.model.service.EspecialidadeService;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class EspecialidadeServiceImpl implements EspecialidadeService {
 	
-	@Autowired
-	private EspecialidadeRepository repository;
+	private final EspecialidadeRepository repository;
 	
 	@Override
 	public Especialidade save(Especialidade especialidade) {
@@ -30,5 +31,10 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
 	public Especialidade findById(Long id) {
 		return repository.findById(id)
 				.orElseThrow(()-> new ResourceNotFoundException(id));
+	}
+	
+	@Override
+	public Optional<Especialidade> getEspecialidadeById(Long id) {
+		return repository.findById(id);
 	}
 }

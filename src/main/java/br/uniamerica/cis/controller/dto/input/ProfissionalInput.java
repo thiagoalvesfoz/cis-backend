@@ -9,6 +9,10 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class ProfissionalInput {
 	
 	@NotBlank
@@ -34,49 +38,6 @@ public class ProfissionalInput {
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dataNascimento;
 	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getSobrenome() {
-		return sobrenome;
-	}
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
-	}
-	public String getSexo() {
-		return sexo;
-	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo.toUpperCase();
-	}
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-	public String getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getCrm() {
-		return crm;
-	}
-	public void setCrm(String crm) {
-		this.crm = crm;
-	}
-	
-	
-
+	private Long especialidadeId;
+	private String avatar;
 }

@@ -3,33 +3,43 @@ package br.uniamerica.cis.model.service.implementation;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.uniamerica.cis.infrastructure.repository.ProfissionalRepository;
+import br.uniamerica.cis.model.entity.Especialidade;
 import br.uniamerica.cis.model.entity.Profissional;
 import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
 import br.uniamerica.cis.model.exception.BusinessRuleException;
 import br.uniamerica.cis.model.exception.ResourceNotFoundException;
+import br.uniamerica.cis.model.service.EspecialidadeService;
 import br.uniamerica.cis.model.service.ProfissionalService;
+import br.uniamerica.cis.model.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 
 @Service
-public class ProfissionalServiceImpl implements ProfissionalService {
-	
-	@Autowired
-	private ProfissionalRepository repository;
-	
-	@Autowired
-	private UsuarioServiceImpl usuarioService;
+@RequiredArgsConstructor
+public class ProfissionalServiceImpl implements ProfissionalService {	
+
+	private final ProfissionalRepository repository;
+	private final UsuarioService usuarioService;
+	private final EspecialidadeService espService;
 	
 	@Override
-	public Profissional save(Profissional profissional) {		
+	public Profissional save(Profissional profissional) {
 		
-		usuarioService.validateUserEmail(profissional.getEmail());		
+		Long idEspecialidade = profissional.getEspecialidade().getId();
+		
+		usuarioService.validateUserEmail(profissional.getEmail());
+		
 		Optional<Profissional> verifyCrm = repository.findByCrm(profissional.getCrm());
+		Optional<Especialidade> verifyEspecialidade = espService.getEspecialidadeById(idEspecialidade);
 		
 		if(verifyCrm.isPresent())
 			throw new BusinessRuleException("Não é possível cadastrar. CRM em uso");
+		
+		if(verifyEspecialidade.isEmpty()) {
+			throw new ResourceNotFoundException(idEspecialidade + " de Especialidade");
+		}
 
 		profissional.setStatus(StatusUsuario.ATIVO);
 		return repository.save(profissional);

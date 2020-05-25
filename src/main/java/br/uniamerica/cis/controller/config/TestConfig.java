@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -17,19 +16,16 @@ import br.uniamerica.cis.model.entity.Especialidade;
 import br.uniamerica.cis.model.entity.Paciente;
 import br.uniamerica.cis.model.entity.Profissional;
 import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @Profile("test")
-public class TestConfig implements CommandLineRunner{
-	
-	@Autowired
-	private ProfissionalRepository pRepository;
-	
-	@Autowired
-	private PacienteRepository pacienteRepository;
-	
-	@Autowired
-	private EspecialidadeRepository especialidadeRepository;
+@RequiredArgsConstructor
+public class TestConfig implements CommandLineRunner{	
+
+	private final ProfissionalRepository pRepository;
+	private final PacienteRepository pacienteRepository;	
+	private final EspecialidadeRepository especialidadeRepository;
 	
 	public void run(String...args) {
 		try {
@@ -70,8 +66,7 @@ public class TestConfig implements CommandLineRunner{
 		Paciente u6 = new Paciente("Eduarda", "Fernandes", LocalDate.parse("1997-06-07"), "F", 
 				"9885444467", "eduarda@fernandes.com", StatusUsuario.ATIVO, "12354398709",
 				"12345678", "https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg",
-				"Duda", null);
-		
+				"Duda", null);		
 		
 		pacienteRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6));
 		

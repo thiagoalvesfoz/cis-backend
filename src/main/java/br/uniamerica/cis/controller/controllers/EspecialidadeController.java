@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -23,16 +22,16 @@ import br.uniamerica.cis.controller.dto.EspecialidadeDTO;
 import br.uniamerica.cis.controller.dto.input.EspecialidadeInput;
 import br.uniamerica.cis.model.entity.Especialidade;
 import br.uniamerica.cis.model.service.EspecialidadeService;
+import lombok.RequiredArgsConstructor;
 
 
 @RestController
 @RequestMapping("/especialidades")
+@RequiredArgsConstructor
 public class EspecialidadeController{
-	
-	@Autowired
-	private ModelMapper modelMapper;
-	@Autowired
-	private EspecialidadeService service;
+
+	private final EspecialidadeService service;
+	private final ModelMapper modelMapper;
 	
 	
 	@GetMapping 

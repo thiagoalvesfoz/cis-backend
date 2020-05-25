@@ -3,7 +3,6 @@ package br.uniamerica.cis.model.service.implementation;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.uniamerica.cis.infrastructure.repository.UsuarioRepository;
@@ -12,12 +11,13 @@ import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
 import br.uniamerica.cis.model.exception.BusinessRuleException;
 import br.uniamerica.cis.model.exception.ResourceNotFoundException;
 import br.uniamerica.cis.model.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioServiceImpl  implements UsuarioService {
 	
-	@Autowired
-	private UsuarioRepository repository;
+	private final UsuarioRepository repository;
 	
 	@Override
 	public Usuario save(Usuario user) {

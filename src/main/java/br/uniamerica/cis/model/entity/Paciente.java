@@ -7,8 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor
 public class Paciente extends Usuario {
 	
 	private String cpf;
@@ -34,58 +39,5 @@ public class Paciente extends Usuario {
 		this.cpf = cpf;
 		this.apelido = apelido;
 		this.endereco = endereco;
-	}
-	
-	public Paciente() {
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getApelido() {
-		return apelido;
-	}
-
-	public void setApelido(String apelido) {
-		this.apelido = apelido;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-	
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Paciente other = (Paciente) obj;
-		if (cpf == null) {
-			if (other.cpf != null)
-				return false;
-		} else if (!cpf.equals(other.cpf))
-			return false;
-		return true;
 	}
 }

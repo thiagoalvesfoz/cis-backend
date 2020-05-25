@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -29,17 +28,16 @@ import br.uniamerica.cis.model.entity.Paciente;
 import br.uniamerica.cis.model.service.PacienteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 
 @Api("Pacientes")
 @RestController
 @RequestMapping("pacientes")
-public class PacienteController {
-	
-	@Autowired
-	private PacienteService service;
-	
-	@Autowired
-	private ModelMapper modelMapper;
+@RequiredArgsConstructor
+public class PacienteController {	
+
+	private final PacienteService service;
+	private final ModelMapper modelMapper;
 	
 	@ApiOperation("Cria um novo paciente")
 	@PostMapping
@@ -51,7 +49,6 @@ public class PacienteController {
 	@ApiOperation("Retorna todos os pacientes")
 	@GetMapping
 	public CollectionModel<EntityModel<PacienteDTO>> all(){
-		// fazer paginação ...
 		List<EntityModel<PacienteDTO>> p = toCollectionModel(service.findAll());
 		
 		return new CollectionModel<>(p, 

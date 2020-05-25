@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -27,18 +26,16 @@ import br.uniamerica.cis.model.entity.Profissional;
 import br.uniamerica.cis.model.service.ProfissionalService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 
 @Api("Profissionais")
 @RestController
 @RequestMapping("/profissionais")
-public class ProfissionalController {
-	
-	@Autowired
-	private ModelMapper modelMapper;
-	
-	@Autowired
-	private ProfissionalService service;
+@RequiredArgsConstructor
+public class ProfissionalController {	
 
+	private final ProfissionalService service;
+	private final ModelMapper modelMapper;
 	
 	@ApiOperation("Cria um novo profissional")
 	@PostMapping

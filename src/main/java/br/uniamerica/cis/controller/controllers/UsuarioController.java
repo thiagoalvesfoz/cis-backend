@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,17 +22,16 @@ import br.uniamerica.cis.model.entity.Usuario;
 import br.uniamerica.cis.model.service.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 
 @Api("Usuários")
 @RestController 
 @RequestMapping("/usuarios")
-public class UsuarioController {
+@RequiredArgsConstructor
+public class UsuarioController {	
 	
-	@Autowired
-	private UsuarioService service;
-	
-	@Autowired
-	private ModelMapper modelMapper;
+	private final UsuarioService service;
+	private final ModelMapper modelMapper;
 	
 	@ApiOperation("Cria um novo usuário")
 	@PostMapping
