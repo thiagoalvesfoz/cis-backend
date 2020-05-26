@@ -61,6 +61,8 @@ public class ProfissionalController {
 		return toModel(profissional);
 	}
 	
+	
+	
 	private Profissional toEntity(ProfissionalInput entityDto) {
 		return modelMapper.map(entityDto, Profissional.class);
 	}
