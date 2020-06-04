@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.uniamerica.cis.infrastructure.repository.PessoaRepository;
 import br.uniamerica.cis.model.entity.Pessoa;
@@ -47,4 +48,34 @@ public class PessoaServiceImpl  implements PessoaService {
 					+ "cadastrado. E-mail: " + existente.get().getEmail());
 		}
 	}
+
+
+	@Override
+	@Transactional
+	public Pessoa update(Long id, Pessoa updated) {
+		
+		Pessoa pessoa = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id));
+		
+		if(updated.getNome() != null) 
+			pessoa.setNome(updated.getNome());
+		
+		if(updated.getSobrenome() != null) 
+			pessoa.setSobrenome(updated.getSobrenome());
+		
+		if(updated.getDataNascimento() != null) 
+			pessoa.setDataNascimento(updated.getDataNascimento());
+		
+		if(updated.getTelefone() != null) 
+			pessoa.setTelefone(updated.getTelefone());
+		
+		if(updated.getSexo() != null) 
+			pessoa.setSexo(updated.getSexo());
+		
+		if(updated.getImgUrl() != null) 
+			pessoa.setImgUrl(updated.getImgUrl());		
+		
+		return repository.save(pessoa);
+	}
+
 }

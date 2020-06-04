@@ -12,30 +12,25 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class UsuarioInput {
+public class UsuarioUpdate {
 	
-	@NotBlank
-	private String admin;
-	
+
 	@NotBlank @Size(min = 6, max = 255)
 	private String senha;
-	
-	@NotBlank @Size(max = 15)
-	private String tipo;
 
 	@Valid @NotNull
-	private PessoaInput user;
+	private PessoaUserUpdate user;
 	
 	public Pessoa getUser() {
 		return toEntity(user);
 	}
 	
-	private Pessoa toEntity(PessoaInput user) {
+	private Pessoa toEntity(PessoaUserUpdate user) {
 		
 		if(user == null) return null;
 		
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(user, Pessoa.class);
-	}
+	}	
 
 }

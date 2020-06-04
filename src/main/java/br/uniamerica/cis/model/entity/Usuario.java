@@ -1,5 +1,6 @@
 package br.uniamerica.cis.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -38,8 +39,8 @@ public class Usuario {
 	@Column(nullable = false)
 	private Boolean admin;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(nullable = false)
-	private Pessoa user;	
+	private Pessoa user;
 	
 }
