@@ -5,37 +5,34 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.uniamerica.cis.infrastructure.repository.UsuarioRepository;
-import br.uniamerica.cis.model.entity.Usuario;
-import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
+import br.uniamerica.cis.infrastructure.repository.PessoaRepository;
+import br.uniamerica.cis.model.entity.Pessoa;
 import br.uniamerica.cis.model.exception.BusinessRuleException;
 import br.uniamerica.cis.model.exception.ResourceNotFoundException;
-import br.uniamerica.cis.model.service.UsuarioService;
+import br.uniamerica.cis.model.service.PessoaService;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UsuarioServiceImpl  implements UsuarioService {
+public class PessoaServiceImpl  implements PessoaService {
 	
-	private final UsuarioRepository repository;
+	private final PessoaRepository repository;
 	
 	@Override
-	public Usuario save(Usuario user) {
+	public Pessoa save(Pessoa user) {
 		
 		validateUserEmail(user.getEmail());
-		
-		user.setStatus(StatusUsuario.ATIVO);
 		return repository.save(user);
 	}
 
 
 	@Override
-	public List<Usuario> findAll() {		
+	public List<Pessoa> findAll() {		
 		return repository.findAll();
 	}
 
 	@Override
-	public Usuario getUser(Long id) {		
+	public Pessoa getUser(Long id) {		
 		return repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
@@ -43,7 +40,7 @@ public class UsuarioServiceImpl  implements UsuarioService {
 	@Override
 	public void validateUserEmail(String email) {		
 		
-		Optional<Usuario> existente = repository.findByEmail(email);		
+		Optional<Pessoa> existente = repository.findByEmail(email);		
 		
 		if(existente.isPresent()) {
 			throw new BusinessRuleException("Já existe um usuário com este e-mail "

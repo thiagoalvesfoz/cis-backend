@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.uniamerica.cis.controller.dto.PacienteDTO;
 import br.uniamerica.cis.controller.dto.input.PacienteInput;
-import br.uniamerica.cis.model.entity.Endereco;
 import br.uniamerica.cis.model.entity.Paciente;
 import br.uniamerica.cis.model.service.PacienteService;
 import io.swagger.annotations.Api;
@@ -60,13 +58,7 @@ public class PacienteController {
 	public EntityModel<PacienteDTO> one(@PathVariable Long id){		
 		Paciente user = service.findById(id);		
 		return toModel(user);
-	}
-	
-	@GetMapping("/{id}/endereco")
-	private ResponseEntity<Endereco> findEndereco(@PathVariable Long id){		
-		Paciente user = service.findById(id);		
-		return ResponseEntity.ok().body(user.getEndereco());
-	}
+	}	
 	
 	
 	private Paciente toEntity(PacienteInput user) {
