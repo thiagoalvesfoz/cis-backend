@@ -20,6 +20,5 @@ public class ProfissionalDTO {
 	private String email;
 	private String telefone;
 	private String especialidadeNome;
-	private String avatar;
-
+	private String avatar;	
 }

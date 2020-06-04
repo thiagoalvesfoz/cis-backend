@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.uniamerica.cis.controller.dto.EspecialidadeDTO;
 import br.uniamerica.cis.controller.dto.input.EspecialidadeInput;
 import br.uniamerica.cis.model.entity.Especialidade;
+import br.uniamerica.cis.model.entity.Servico;
 import br.uniamerica.cis.model.service.EspecialidadeService;
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +40,11 @@ public class EspecialidadeController{
 		List<EntityModel<EspecialidadeDTO>> especialidades = toCollectionModel(service.findAll());		
 		return new CollectionModel<>(especialidades, 
 				linkTo(methodOn(EspecialidadeController.class).all()).withSelfRel());
+	}
+	
+	@GetMapping("/{id}/servicos")
+	public List<Servico> allList(@PathVariable Long id){
+		return service.findAllServices(id);
 	}
 	
 

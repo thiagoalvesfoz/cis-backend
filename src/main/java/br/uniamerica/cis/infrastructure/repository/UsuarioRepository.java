@@ -9,6 +9,5 @@ import br.uniamerica.cis.model.entity.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long > {
-	
 	Optional<Usuario> findByEmail(String email);
 }

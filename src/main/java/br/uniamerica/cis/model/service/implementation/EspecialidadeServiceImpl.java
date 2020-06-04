@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import br.uniamerica.cis.infrastructure.repository.EspecialidadeRepository;
+import br.uniamerica.cis.infrastructure.repository.ServicoRepository;
 import br.uniamerica.cis.model.entity.Especialidade;
+import br.uniamerica.cis.model.entity.Servico;
 import br.uniamerica.cis.model.exception.ResourceNotFoundException;
 import br.uniamerica.cis.model.service.EspecialidadeService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class EspecialidadeServiceImpl implements EspecialidadeService {
 	
 	private final EspecialidadeRepository repository;
+	private final ServicoRepository serviceRepository;
 	
 	@Override
 	public Especialidade save(Especialidade especialidade) {
@@ -36,5 +39,11 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
 	@Override
 	public Optional<Especialidade> getEspecialidadeById(Long id) {
 		return repository.findById(id);
+	}
+
+	@Override
+	public List<Servico> findAllServices(Long id) {	
+		Especialidade especialidade = this.findById(id);
+		return serviceRepository.findByEspecialidade(especialidade);
 	}
 }

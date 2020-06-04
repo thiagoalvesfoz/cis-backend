@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Profile;
 import br.uniamerica.cis.infrastructure.repository.EspecialidadeRepository;
 import br.uniamerica.cis.infrastructure.repository.PacienteRepository;
 import br.uniamerica.cis.infrastructure.repository.ProfissionalRepository;
+import br.uniamerica.cis.infrastructure.repository.ServicoRepository;
 import br.uniamerica.cis.model.entity.Endereco;
 import br.uniamerica.cis.model.entity.Especialidade;
 import br.uniamerica.cis.model.entity.Paciente;
 import br.uniamerica.cis.model.entity.Profissional;
+import br.uniamerica.cis.model.entity.Servico;
 import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
 import lombok.RequiredArgsConstructor;
 
@@ -26,11 +28,12 @@ public class TestConfig implements CommandLineRunner{
 	private final ProfissionalRepository pRepository;
 	private final PacienteRepository pacienteRepository;	
 	private final EspecialidadeRepository especialidadeRepository;
+	private final ServicoRepository servicoRepository;
 	
 	public void run(String...args) {
 		try {
 			pacientes();
-			profissionais();
+			profissionais();			
 		}catch(ParseException ex) {
 			ex.printStackTrace();
 		}
@@ -131,5 +134,32 @@ public class TestConfig implements CommandLineRunner{
 		p5.setEspecialidade(esp4);
 		p6.setEspecialidade(esp3);
 		pRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
+					
+		Servico svc1 = new Servico(null, "Atendimento Clínico", "Para adultos, adolescentes, crianças e idosos", esp1);
+		Servico svc2 = new Servico(null, "Orientação vocacional", "Orientação para escolher a profissão certa", esp1);
+		Servico svc3 = new Servico(null, "Orientação de pais", "Orientação para os pais", esp1);
+		Servico svc4 = new Servico(null, "Atendimento psicopedagógico", null, esp1);
+		Servico svc5 = new Servico(null, "Grupos de psicoeducacao", null, esp1);
+		Servico svc6 = new Servico(null, "Formação de Grupos Psicoeducativos", null, esp1);
+		Servico svc7 = new Servico(null, "Grupos terapêuticos", null, esp1);
+		
+		Servico svc8 = new Servico(null, "Traumato-Ortopedia", null, esp2);
+		Servico svc9 = new Servico(null, "Reumatológica", null, esp2);
+		Servico svc10 = new Servico(null, "Reumatologia", null, esp2);
+		Servico svc11 = new Servico(null, "Desportiva", null, esp2);
+		Servico svc12 = new Servico(null, "Pediátrica", null, esp2);
+		Servico svc13 = new Servico(null, "Saúde da Mulher", null, esp2);
+		Servico svc14 = new Servico(null, "Cardiorrespiratória", null, esp2);
+		Servico svc15 = new Servico(null, "Cardiologia", null, esp2);
+		Servico svc16 = new Servico(null, "Neurofuncional adulto e pediátrico", null, esp2);
+		
+		
+		
+		servicoRepository.saveAll(Arrays.asList(svc1, svc2, svc3, svc4, svc5, svc6, svc7, 
+				svc8, svc9, svc10, svc11, svc12, svc13, svc14, svc15, svc16));	
+
+		pRepository.save(p1);
+		
+		
 	}
 }
