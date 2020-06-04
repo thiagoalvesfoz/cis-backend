@@ -33,6 +33,10 @@ public class Especialidade {
 	private List<Profissional> profissional = new ArrayList<>();
 	// vários profissionais podem ter uma especialidade em comum
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "especialidade")
+	private List<Servico> servicos = new ArrayList<>();
+	
 	public Especialidade(String nome) {
 		this.nome = nome;
 	}

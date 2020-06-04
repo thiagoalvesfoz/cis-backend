@@ -22,7 +22,8 @@ public class Profissional extends Usuario {
 	
 	@ManyToOne
 	@JoinColumn(name = "especialidade_id")
-	private Especialidade especialidade;	
+	private Especialidade especialidade;
+
 
 	public Profissional(String nome, 
 			String sobrenome, 

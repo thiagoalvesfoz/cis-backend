@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import br.uniamerica.cis.model.entity.Especialidade;
 
-public interface EspecialidadeService {
+public interface EspecialidadeService extends ServicoService {
 	Especialidade save(Especialidade especialidade);
 	List<Especialidade> findAll();
 	Especialidade findById(Long id);
