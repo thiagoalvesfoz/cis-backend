@@ -42,7 +42,7 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
 	}
 
 	@Override
-	public List<Servico> findAllServices(Long id) {	
+	public List<Servico> findAllServices(Long id) {
 		Especialidade especialidade = this.findById(id);
 		return serviceRepository.findByEspecialidade(especialidade);
 	}

@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 import br.uniamerica.cis.infrastructure.repository.ProfissionalRepository;
 import br.uniamerica.cis.model.entity.Especialidade;
 import br.uniamerica.cis.model.entity.Profissional;
-import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
 import br.uniamerica.cis.model.exception.BusinessRuleException;
 import br.uniamerica.cis.model.exception.ResourceNotFoundException;
 import br.uniamerica.cis.model.service.EspecialidadeService;
+import br.uniamerica.cis.model.service.PessoaService;
 import br.uniamerica.cis.model.service.ProfissionalService;
-import br.uniamerica.cis.model.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -21,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class ProfissionalServiceImpl implements ProfissionalService {	
 
 	private final ProfissionalRepository repository;
-	private final UsuarioService usuarioService;
+	private final PessoaService usuarioService;
 	private final EspecialidadeService espService;
 	
 	@Override
@@ -41,7 +40,6 @@ public class ProfissionalServiceImpl implements ProfissionalService {
 			throw new ResourceNotFoundException(idEspecialidade + " de Especialidade");
 		}
 
-		profissional.setStatus(StatusUsuario.ATIVO);
 		return repository.save(profissional);
 	}
 

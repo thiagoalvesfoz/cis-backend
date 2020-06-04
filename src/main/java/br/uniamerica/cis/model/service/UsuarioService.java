@@ -6,9 +6,6 @@ import br.uniamerica.cis.model.entity.Usuario;
 
 public interface UsuarioService {
 	
-	Usuario save(Usuario user);
 	List<Usuario> findAll();
-	Usuario getUser(Long id);
-	void validateUserEmail(String email);
-
+	Usuario updateUser(Long id, Usuario user);
 }
