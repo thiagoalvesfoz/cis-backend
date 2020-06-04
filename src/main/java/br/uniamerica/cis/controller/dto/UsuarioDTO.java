@@ -1,8 +1,6 @@
 package br.uniamerica.cis.controller.dto;
 
-import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.modelmapper.ModelMapper;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,13 +8,22 @@ import lombok.Setter;
 @Getter @Setter
 public class UsuarioDTO {
 	
-	private String id;
-	private String nome;
-	private String sobrenome;
-	private String sexo;
+	private Long id;
+	private String tipo;
+	private String status;
+	private Boolean admin;
+	private PessoaDTO user;
 	
-	@JsonFormat(pattern = "dd-MM-yyyy")
-	private LocalDate dataNascimento;
-	private String email;
-	private String telefone;
+	
+	public PessoaDTO getUser() {
+		return toEntity(user);
+	}
+	
+	private PessoaDTO toEntity(PessoaDTO user) {
+		
+		if(user == null) return null;
+		
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper.map(user, PessoaDTO.class);
+	}
 }

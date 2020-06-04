@@ -10,5 +10,6 @@ public interface PessoaService {
 	List<Pessoa> findAll();
 	Pessoa getUser(Long id);
 	void validateUserEmail(String email);
+	Pessoa update(Long id, Pessoa updated);
 
 }

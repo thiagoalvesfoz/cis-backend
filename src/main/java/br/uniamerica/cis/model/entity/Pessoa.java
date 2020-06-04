@@ -13,6 +13,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -34,7 +35,10 @@ public class Pessoa {
 	@Column(nullable = false)
 	private String nome;
 	@Column(nullable = false)
-	private String sobrenome;	
+	private String sobrenome;
+	
+	@Transient
+	private String nomeCompleto;
 	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	@Column(nullable = false)
@@ -46,15 +50,14 @@ public class Pessoa {
 	@Column(length = 20)
 	private String telefone;
 	
-	@Column(nullable = false, length = 60)
+	@Column(nullable = false, length = 70)
 	private String email;
 	private String imgUrl;	
 	private LocalDateTime createdAt;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
-	private Endereco endereco;
-	
+	private Endereco endereco;	
 	
 	public Pessoa(String nome, 
 			String sobrenome, 
@@ -74,12 +77,14 @@ public class Pessoa {
 		this.telefone = telefone;
 		this.email = email;
 		this.imgUrl = avatar;
-		this.endereco = endereco;
-		
-		this.createdAt = LocalDateTime.now();
+		this.endereco = endereco;	
 	}
 	
-	public String nomeCompleto() {
+	public String getNomeCompleto() {
 		return this.nome + " " + this.sobrenome;
+	}
+	
+	public String getSexo() {
+		return this.sexo.toUpperCase();
 	}
 }
