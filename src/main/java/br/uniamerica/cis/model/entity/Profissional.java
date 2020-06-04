@@ -14,7 +14,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class Profissional extends Usuario {
+public class Profissional extends Pessoa {
 	
 	private Long crm;
 	private String tipoProfissional;
@@ -34,9 +34,10 @@ public class Profissional extends Usuario {
 			String password,
 			String avatar,
 			StatusUsuario status,
+			Endereco endereco,
 			Long crm) {
 		
-		super(nome, sobrenome, dataNascimento, sexo, telefone, email,password, avatar, status);
+		super(nome, sobrenome, dataNascimento, sexo, telefone, email,password, avatar, endereco, status);
 		this.crm = crm;
 	}	
 }

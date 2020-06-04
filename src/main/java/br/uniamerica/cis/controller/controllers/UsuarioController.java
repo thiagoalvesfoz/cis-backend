@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.uniamerica.cis.controller.dto.UsuarioDTO;
 import br.uniamerica.cis.controller.dto.input.UsuarioInput;
-import br.uniamerica.cis.model.entity.Usuario;
-import br.uniamerica.cis.model.service.UsuarioService;
+import br.uniamerica.cis.model.entity.Pessoa;
+import br.uniamerica.cis.model.service.PessoaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -30,14 +30,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioController {	
 	
-	private final UsuarioService service;
+	private final PessoaService service;
 	private final ModelMapper modelMapper;
 	
 	@ApiOperation("Cria um novo usuário")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) 
 	private UsuarioDTO adicionar(@Valid @RequestBody UsuarioInput user) {
-		Usuario novoUsuario = toEntity(user);
+		Pessoa novoUsuario = toEntity(user);
 		return toModel(service.save(novoUsuario));
 	}
 	
@@ -50,23 +50,23 @@ public class UsuarioController {
 	@ApiOperation("Retorna um usuário por id")
 	@GetMapping("/{id}")
 	private ResponseEntity <UsuarioDTO> buscar(@PathVariable Long id){
-		Usuario user = service.getUser(id);
+		Pessoa user = service.getUser(id);
 		return ResponseEntity.ok().body(toModel(user));
 	}
 	
 	//converte uma entidade para um modelo representacional
-	private UsuarioDTO toModel(Usuario user) {
+	private UsuarioDTO toModel(Pessoa user) {
 		return modelMapper.map(user, UsuarioDTO.class);
 	}
 	
 	//converte um modelo representacional para um objeto entitade
-	private Usuario toEntity(UsuarioInput user) {
-		return modelMapper.map(user, Usuario.class);
+	private Pessoa toEntity(UsuarioInput user) {
+		return modelMapper.map(user, Pessoa.class);
 	}
 	
 	
 	//converte uma lista de entidades para uma lista de DTOs
-	private List<UsuarioDTO> toCollectionModel(List<Usuario> users){
+	private List<UsuarioDTO> toCollectionModel(List<Pessoa> users){
 		return users.stream().map( usuario -> toModel(usuario))
 				.collect(Collectors.toList());
 	}

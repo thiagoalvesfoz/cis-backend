@@ -74,48 +74,42 @@ public class TestConfig implements CommandLineRunner{
 		pacienteRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6));
 		
 		//Adicionando endereco
-		Endereco e1 = new Endereco(null, "85854-400", 70L, "Rua Balduíno Weirich, Vila Boa Esperança", u1);
-		Endereco e2 = new Endereco(null, "85854-400", 70L, "Rua Balduíno Weirich, Vila Boa Esperança", u2);
-		Endereco e3 = new Endereco(null, "85854-400", 70L, "Rua Balduíno Weirich, Vila Boa Esperança", u3);
-		Endereco e4 = new Endereco(null, "85854-400", 70L, "Rua Balduíno Weirich, Vila Boa Esperança", u4);
-		Endereco e5 = new Endereco(null, "85854-400", 70L, "Rua Balduíno Weirich, Vila Boa Esperança", u5);
-		Endereco e6 = new Endereco(null, "85854-400", 70L, "Rua Balduíno Weirich, Vila Boa Esperança", u6);
-		
+		Endereco e1 = new Endereco(null, "Foz do Iguaçu", "PR", "Rua Balduíno Weirich, Vila Boa Esperança, n 70");
 		u1.setEndereco(e1);
-		u2.setEndereco(e2);
-		u3.setEndereco(e3);
-		u4.setEndereco(e4);
-		u5.setEndereco(e5);
-		u6.setEndereco(e6);
+		u2.setEndereco(e1);
+		u3.setEndereco(e1);
+		u4.setEndereco(e1);
+		u5.setEndereco(e1);
+		u6.setEndereco(e1);		
 		
 		pacienteRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6));
 	}
 	
 	private void profissionais() throws ParseException {
 		Profissional p1 = new Profissional("Vagner", "Silva", LocalDate.parse("1992-05-13"), "M", 
-				"977373267", "vagner@silva.com", "akmtv@2020", 
+				"977373267", "vagner@silva.com", null, 
 				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", 
-				StatusUsuario.ATIVO, 12345L);
+				null, null, 12345L);
 		
 		Profissional p2 = new Profissional("Milena", "Lins", LocalDate.parse("1994-03-20"), "F", 
 				"9777888888", "milena@lins.com", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", StatusUsuario.ATIVO, 7775L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 7775L);
 		
 		Profissional p3 = new Profissional("Jefferson", "Schipitoski", LocalDate.parse("1985-08-15"), "M", 
 				"9797979797", "Jefferson@schipitoski.com", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", StatusUsuario.ATIVO, 2223L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 2223L);
 		
 		Profissional p4 = new Profissional("Brandow", "Buenos", LocalDate.parse("1991-11-03"), "M", 
 				"9745288823", "brandowbuenos@hotmail.com", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", StatusUsuario.ATIVO, 32115L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 32115L);
 		
 		Profissional p5 = new Profissional("William", "Will", LocalDate.parse("1989-06-12"), "M", 
 				"9885231558", "will_william@yahoo.com.br", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", StatusUsuario.ATIVO, 988375L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 988375L);
 		
 		Profissional p6 = new Profissional("Luisa", "Mara", LocalDate.parse("1996-11-18"), "F", 
 				"98854433334", "luisamara96@hotmail.com", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", StatusUsuario.ATIVO, 122225L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 122225L);
 		
 		pRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
 		

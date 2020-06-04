@@ -1,16 +1,17 @@
 package br.uniamerica.cis.model.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,27 +20,25 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
+public class Clinica {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false, length = 15)
-	private String tipo;
+	@Column(nullable = false, length = 80)
+	private String nome;
 	
-	@Column(nullable = false)
-	private String senha;
+	@Column(length = 18)
+	private String cnpj;
 	
-	@Column(nullable = false, length = 15)
-	@Enumerated(EnumType.STRING)
-	private StatusUsuario status;
-	
-	@Column(nullable = false)
-	private Boolean admin;
+	private String latitude;
+	private String longitude;
 	
 	@OneToOne
-	@JoinColumn(nullable = false)
-	private Pessoa user;	
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
 	
+	@OneToMany
+	private List<Usuario> equipe = new ArrayList<>();
 }
