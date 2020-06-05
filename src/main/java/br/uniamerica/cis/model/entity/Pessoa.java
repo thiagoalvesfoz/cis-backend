@@ -53,6 +53,9 @@ public class Pessoa {
 	@Column(nullable = false, length = 70)
 	private String email;
 	private String imgUrl;	
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, 
+	pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private LocalDateTime createdAt;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -77,7 +80,8 @@ public class Pessoa {
 		this.telefone = telefone;
 		this.email = email;
 		this.imgUrl = avatar;
-		this.endereco = endereco;	
+		this.endereco = endereco;
+		this.createdAt = LocalDateTime.now();
 	}
 	
 	public String getNomeCompleto() {

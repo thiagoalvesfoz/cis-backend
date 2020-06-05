@@ -2,6 +2,7 @@ package br.uniamerica.cis.model.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,12 +17,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Profissional extends Pessoa {
 	
+	@Column(nullable = false)
 	private Long crm;
-	private String tipoProfissional;
-	private String descricao;
 	
 	@ManyToOne
-	@JoinColumn(name = "especialidade_id")
+	@JoinColumn(name = "especialidade_id", nullable = true)	
 	private Especialidade especialidade;
 
 

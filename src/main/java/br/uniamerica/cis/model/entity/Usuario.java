@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
@@ -42,5 +43,11 @@ public class Usuario {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(nullable = false)
 	private Pessoa user;
+	
+	
+	//@ManyToOne
+	//@JoinColumn(name = "id_clinica")
+	//private Clinica clinica;
+	
 	
 }
