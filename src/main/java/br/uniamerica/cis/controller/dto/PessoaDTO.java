@@ -22,6 +22,8 @@ public class PessoaDTO {
 	private String telefone;	
 	private String email;
 	private String imgUrl;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, 
+	pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private LocalDateTime createdAt;	
 }

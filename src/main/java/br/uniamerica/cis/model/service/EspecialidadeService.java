@@ -10,4 +10,5 @@ public interface EspecialidadeService extends ServicoService {
 	List<Especialidade> findAll();
 	Especialidade findById(Long id);
 	Optional<Especialidade> getEspecialidadeById(Long id);
+	void atualizar(Long id, String nome);
 }

@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ProfissionalInput extends PessoaInput {	
+public class UsuarioStatusInput {
 	
 	@NotBlank
-	private String crm;
-	private Long especialidadeId;
+	private String status;
+
 }

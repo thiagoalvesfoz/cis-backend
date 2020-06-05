@@ -2,6 +2,7 @@ package br.uniamerica.cis.controller.dto;
 
 import org.modelmapper.ModelMapper;
 
+import br.uniamerica.cis.model.entity.Clinica;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ public class UsuarioDTO {
 	private String status;
 	private Boolean admin;
 	private PessoaDTO user;
+	private Clinica clinica;
 	
 	
 	public PessoaDTO getUser() {

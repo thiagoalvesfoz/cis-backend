@@ -26,6 +26,9 @@ public class UsuarioInput {
 	@Valid @NotNull
 	private PessoaInput user;
 	
+	//@NotNull
+	//private Long clinicaId;
+	
 	public Pessoa getUser() {
 		return toEntity(user);
 	}

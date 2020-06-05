@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.uniamerica.cis.controller.dto.UsuarioDTO;
 import br.uniamerica.cis.controller.dto.input.UsuarioInput;
+import br.uniamerica.cis.controller.dto.input.UsuarioStatusInput;
 import br.uniamerica.cis.controller.dto.input.UsuarioUpdate;
 import br.uniamerica.cis.model.entity.Usuario;
-import br.uniamerica.cis.model.service.implementation.UsuarioServiceImpl;
+import br.uniamerica.cis.model.service.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +32,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioController {	
 	
-	private final UsuarioServiceImpl service; //mudar
+	private final UsuarioService service;
 	private final ModelMapper modelMapper;
 	
-	@ApiOperation("Cria um novo usuário")
+	@ApiOperation("Cria um novo usuário no sistema")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) 
 	private UsuarioDTO adicionar(@Valid @RequestBody UsuarioInput user) {
@@ -43,44 +43,54 @@ public class UsuarioController {
 		return toModel(entity);
 	}
 	
-	@ApiOperation("Retorna todos os usuários")
+	@ApiOperation("Lista todos os usuários")
 	@GetMapping
+	@ResponseStatus(HttpStatus.OK) 
 	private List <UsuarioDTO> listar(){
 		return toCollectionModel(service.findAll());
 	}
 	
 	@ApiOperation("Retorna um usuário por id")
 	@GetMapping("/{id}")
-	private ResponseEntity <UsuarioDTO> buscar(@PathVariable Long id){
+	@ResponseStatus(HttpStatus.OK) 
+	private UsuarioDTO buscar(@PathVariable Long id){
+		
 		Usuario user = service.getUser(id);
-		return ResponseEntity.ok().body(toModel(user));
+		return toModel(user);
 	}
 	
 	@ApiOperation("Atualiza as informações do usuário")
 	@PutMapping("/{id}")
-	private ResponseEntity <UsuarioDTO> atualizar(@PathVariable Long id, @RequestBody UsuarioUpdate atualizado){
-		Usuario user = service.updateUser( id , toEntity( atualizado ) );		
-		return ResponseEntity.ok().body(toModel(user));
-	}
-	
-	@PutMapping("/{id}/atualizar-status")
 	@ResponseStatus(HttpStatus.OK) 
-	private UsuarioDTO atualizarStatus(@PathVariable Long id){
-		return toModel(service.getUser(id));
+	private UsuarioDTO atualizar(@PathVariable Long id, 
+						  		@RequestBody UsuarioUpdate atualizado){
+		
+		Usuario user = service.updateUser( id , toEntity( atualizado ) );
+		
+		return toModel(user);
 	}
 	
-	//converte uma entidade para um modelo representacional
+	@ApiOperation("Altera o status do usuário no sistema")
+	@PutMapping("/{id}/atualizar-status")
+	@ResponseStatus(HttpStatus.NO_CONTENT) 
+	private void atualizarStatus(@PathVariable Long id, 
+								 @Valid @RequestBody UsuarioStatusInput user){
+		
+		service.updateStatus(id, user.getStatus());
+	}
+	
+	
+	//conversões dto
+	
 	private UsuarioDTO toModel(Usuario user) {
 		return modelMapper.map(user, UsuarioDTO.class);
 	}
 	
-	//converte um modelo representacional para um objeto entitade
 	private <U extends Object> Usuario toEntity(U user) {
 		return modelMapper.map(user, Usuario.class);
 	}
 	
 	
-	//converte uma lista de entidades para uma lista de DTOs
 	private List<UsuarioDTO> toCollectionModel(List<Usuario> users){
 		return users.stream().map( usuario -> toModel(usuario))
 				.collect(Collectors.toList());

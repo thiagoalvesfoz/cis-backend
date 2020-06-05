@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.uniamerica.cis.controller.dto.ProfissionalDTO;
+import br.uniamerica.cis.controller.dto.ProfissionalShortDTO;
 import br.uniamerica.cis.controller.dto.input.ProfissionalInput;
 import br.uniamerica.cis.model.entity.Profissional;
 import br.uniamerica.cis.model.service.ProfissionalService;
@@ -40,15 +41,17 @@ public class ProfissionalController {
 	@ApiOperation("Cria um novo profissional")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	private EntityModel<ProfissionalDTO> criar(@Valid @RequestBody ProfissionalInput p) {
-		return toModel(service.save(toEntity(p)));
+	private EntityModel<ProfissionalDTO> criar(@Valid @RequestBody ProfissionalInput profissional) {
+		return toModel(service.save(toEntity(profissional)));
 	}
 	
 	@GetMapping
 	@ApiOperation("Retorna todos os profissionais")
-	public CollectionModel<EntityModel<ProfissionalDTO>> all(){
+	@ResponseStatus(HttpStatus.OK)
+	public CollectionModel<EntityModel<ProfissionalShortDTO>> all(){	
 		
-		List<EntityModel<ProfissionalDTO>> list = toCollectionModel(service.findAll());
+		List<EntityModel<ProfissionalShortDTO>> list = service.findAll()
+				.stream().map(this::toModelShort).collect(Collectors.toList());	
 		
 		return new CollectionModel<>(list, 
 				linkTo(methodOn(EspecialidadeController.class).all()).withSelfRel());
@@ -62,19 +65,30 @@ public class ProfissionalController {
 	}
 	
 	
-	
+	///conversões
 	private Profissional toEntity(ProfissionalInput entityDto) {
 		return modelMapper.map(entityDto, Profissional.class);
 	}
 	
 	public EntityModel<ProfissionalDTO> toModel(Profissional entity) {
 		ProfissionalDTO dtoEntity = modelMapper.map(entity, ProfissionalDTO.class);
-		return new EntityModel<>(dtoEntity, 
-				linkTo(methodOn(ProfissionalController.class).one(dtoEntity.getId())).withSelfRel(),
-				linkTo(methodOn(ProfissionalController.class).all()).withRel("profissionais"));	
+		return createLinks(dtoEntity, dtoEntity.getId());
+	}
+	
+	public EntityModel<ProfissionalShortDTO> toModelShort(Profissional entity) {
+		ProfissionalShortDTO dtoEntity = modelMapper.map(entity, ProfissionalShortDTO.class);
+		return createLinks(dtoEntity, dtoEntity.getId());	
 	}
 	
 	public List<EntityModel<ProfissionalDTO>> toCollectionModel(List<Profissional> list){
 		return list.stream().map(this::toModel).collect(Collectors.toList());
-	}
+	}	
+	
+	//novo código
+	protected <T> EntityModel<T> createLinks(T dtoEntity, Long id) {
+		return new EntityModel<>(dtoEntity, 
+				linkTo(methodOn(ProfissionalController.class).one(id)).withSelfRel(),
+				linkTo(methodOn(ProfissionalController.class).all()).withRel("profissionais"));
+	}	
+
 }
