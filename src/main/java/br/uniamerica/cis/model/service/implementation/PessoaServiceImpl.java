@@ -20,8 +20,7 @@ public class PessoaServiceImpl  implements PessoaService {
 	private final PessoaRepository repository;
 	
 	@Override
-	public Pessoa save(Pessoa user) {
-		
+	public Pessoa save(Pessoa user) {		
 		validateUserEmail(user.getEmail());
 		return repository.save(user);
 	}
@@ -39,13 +38,13 @@ public class PessoaServiceImpl  implements PessoaService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public void validateUserEmail(String email) {		
 		
 		Optional<Pessoa> existente = repository.findByEmail(email);		
 		
 		if(existente.isPresent()) {
-			throw new BusinessRuleException("Já existe um usuário com este e-mail "
-					+ "cadastrado. E-mail: " + existente.get().getEmail());
+			throw new BusinessRuleException("Já existe um usuário com este e-mail.");
 		}
 	}
 

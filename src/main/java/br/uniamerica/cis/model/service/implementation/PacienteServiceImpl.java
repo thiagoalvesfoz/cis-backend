@@ -1,5 +1,6 @@
 package br.uniamerica.cis.model.service.implementation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public class PacienteServiceImpl implements PacienteService {
 	@Override
 	public Paciente save(Paciente paciente) {
 		
-		userService.validateUserEmail(paciente.getEmail());		
+		userService.validateUserEmail(paciente.getEmail());
+		paciente.setCreatedAt(LocalDateTime.now());
 		return repository.save(paciente);
 	}
 

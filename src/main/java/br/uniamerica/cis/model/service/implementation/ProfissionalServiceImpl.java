@@ -1,5 +1,6 @@
 package br.uniamerica.cis.model.service.implementation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +27,7 @@ public class ProfissionalServiceImpl implements ProfissionalService {
 	@Override
 	public Profissional save(Profissional profissional) {
 		
-		Long idEspecialidade = profissional.getEspecialidade().getId();
-		
+		Long idEspecialidade = profissional.getEspecialidade().getId();		
 		usuarioService.validateUserEmail(profissional.getEmail());
 		
 		Optional<Profissional> verifyCrm = repository.findByCrm(profissional.getCrm());
@@ -36,10 +36,11 @@ public class ProfissionalServiceImpl implements ProfissionalService {
 		if(verifyCrm.isPresent())
 			throw new BusinessRuleException("Não é possível cadastrar. CRM em uso");
 		
-		if(verifyEspecialidade.isEmpty()) {
+		if(verifyEspecialidade.isEmpty())
 			throw new ResourceNotFoundException(idEspecialidade + " de Especialidade");
-		}
 
+		
+		profissional.setCreatedAt(LocalDateTime.now());
 		return repository.save(profissional);
 	}
 

@@ -46,4 +46,11 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
 		Especialidade especialidade = this.findById(id);
 		return serviceRepository.findByEspecialidade(especialidade);
 	}
+
+	@Override
+	public void atualizar(Long id, String nome) {
+		Especialidade especialidade = this.findById(id);
+		especialidade.setNome(nome);
+		repository.save(especialidade);
+	}
 }
