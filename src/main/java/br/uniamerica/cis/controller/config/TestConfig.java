@@ -116,9 +116,14 @@ public class TestConfig implements CommandLineRunner{
 		Especialidade esp1 = new Especialidade("Piscologia");
 		Especialidade esp2 = new Especialidade("Fisioterapia");
 		Especialidade esp3 = new Especialidade("Nutrição");
-		Especialidade esp4 = new Especialidade("Clínica Geral");
+		Especialidade esp4 = new Especialidade("Fonoaudiologia");
+		Especialidade esp5 = new Especialidade("Clínica Geral");
+		Especialidade esp6 = new Especialidade("Psiquiatria");
+		Especialidade esp7 = new Especialidade("Ortopedia");
+		Especialidade esp8 = new Especialidade("Programas de Saúde");
 		
-		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2, esp3, esp4));
+		
+		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2, esp3, esp4, esp5, esp6, esp7, esp8));
 		
 		//Associando profissionais com as especialidades;
 		p1.setEspecialidade(esp2);
@@ -128,29 +133,49 @@ public class TestConfig implements CommandLineRunner{
 		p5.setEspecialidade(esp4);
 		p6.setEspecialidade(esp3);
 		pRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
-					
-		Servico svc1 = new Servico(null, "Atendimento Clínico", "Para adultos, adolescentes, crianças e idosos", esp1);
-		Servico svc2 = new Servico(null, "Orientação vocacional", "Orientação para escolher a profissão certa", esp1);
-		Servico svc3 = new Servico(null, "Orientação de pais", "Orientação para os pais", esp1);
-		Servico svc4 = new Servico(null, "Atendimento psicopedagógico", null, esp1);
-		Servico svc5 = new Servico(null, "Grupos de psicoeducacao", null, esp1);
-		Servico svc6 = new Servico(null, "Formação de Grupos Psicoeducativos", null, esp1);
-		Servico svc7 = new Servico(null, "Grupos terapêuticos", null, esp1);
 		
-		Servico svc8 = new Servico(null, "Traumato-Ortopedia", null, esp2);
-		Servico svc9 = new Servico(null, "Reumatológica", null, esp2);
-		Servico svc10 = new Servico(null, "Reumatologia", null, esp2);
-		Servico svc11 = new Servico(null, "Desportiva", null, esp2);
-		Servico svc12 = new Servico(null, "Pediátrica", null, esp2);
-		Servico svc13 = new Servico(null, "Saúde da Mulher", null, esp2);
-		Servico svc14 = new Servico(null, "Cardiorrespiratória", null, esp2);
-		Servico svc15 = new Servico(null, "Cardiologia", null, esp2);
-		Servico svc16 = new Servico(null, "Neurofuncional adulto e pediátrico", null, esp2);
+		//serviços piscologia
+		Servico svc1 = new Servico(null, "Atendimento Clínico", 80.00, esp1);
+		Servico svc2 = new Servico(null, "Orientação vocacional", 80.00, esp1);
+		Servico svc3 = new Servico(null, "Orientação de pais", 80.00, esp1);
+		Servico svc4 = new Servico(null, "Atendimento psicopedagógico", 80.00, esp1);
+		Servico svc5 = new Servico(null, "Grupos de psicoeducacao", 80.00, esp1);
+		Servico svc6 = new Servico(null, "Formação de Grupos Psicoeducativos", 80.00, esp1);
+		Servico svc7 = new Servico(null, "Grupos terapêuticos", 80.00, esp1);
+		//serviços fisioterapia
+		Servico svc8 = new Servico(null, "Traumato-Ortopedia", 50.00, esp2);
+		Servico svc9 = new Servico(null, "Reumatológica", 50.00, esp2);
+		Servico svc10 = new Servico(null, "Reumatologia", 50.00, esp2);
+		Servico svc11 = new Servico(null, "Desportiva", 50.00, esp2);
+		Servico svc12 = new Servico(null, "Pediátrica", 50.00, esp2);
+		Servico svc13 = new Servico(null, "Saúde da Mulher", 50.00, esp2);
+		Servico svc14 = new Servico(null, "Cardiorrespiratória", 50.00, esp2);
+		Servico svc15 = new Servico(null, "Cardiologia", 50.00, esp2);
+		Servico svc16 = new Servico(null, "Neurofuncional adulto e pediátrico", 50.00, esp2);
+		//serviços nutrição
+		Servico svc17 = new Servico(null, "Reeducação alimentar", 80.00, esp3);
+		Servico svc18 = new Servico(null, "Doenças crônicas", 80.00, esp3);
+		Servico svc19 = new Servico(null, "Obesidade", 80.00, esp3);
+		Servico svc20 = new Servico(null, "Idosos", 80.00, esp3);
+		Servico svc21 = new Servico(null, "Gestantes", 80.00, esp3);
+		Servico svc22 = new Servico(null, "Crianças", 80.00, esp3);
+		Servico svc23 = new Servico(null, "Esportistas", 80.00, esp3);
+		//programas de saúde
+		Servico svc24 = new Servico(null, "Programa de Orientação a Pais (POP)", 120.00, esp8);
+		Servico svc25 = new Servico(null, "Programa de Bem estar e Saúde mental", 120.00, esp8);
+		Servico svc26 = new Servico(null, "Programa 60 + (Saúde do Idoso)", 120.00, esp8);
+		Servico svc27 = new Servico(null, "Programa Reeducação Alimentar", 120.00, esp8);
+		Servico svc28 = new Servico(null, "Grupo de Habilidades Socioemocionais (jovens)", 120.00, esp8);
+		Servico svc29 = new Servico(null, "Programa de Apoio a Procura de Emprego (PAPE)", 120.00, esp8);
+		Servico svc30 = new Servico(null, "Grupo de Inteligência Emocional para Crianças", 120.00, esp8);
+		Servico svc31 = new Servico(null, "Grupo Terapêutico Ser Mãe", 120.00, esp8);
 		
 		
 		
 		servicoRepository.saveAll(Arrays.asList(svc1, svc2, svc3, svc4, svc5, svc6, svc7, 
-				svc8, svc9, svc10, svc11, svc12, svc13, svc14, svc15, svc16));	
+				svc8, svc9, svc10, svc11, svc12, svc13, svc14, svc15, svc16, svc17, svc18,
+				svc19, svc20, svc21, svc22, svc23, svc24, svc25, svc26, svc27, svc28, svc29,
+				svc30, svc31));	
 
 		pRepository.save(p1);
 		

@@ -1,5 +1,6 @@
 package br.uniamerica.cis.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,9 @@ public class Servico {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private String descricao;
+	
+	@Column(precision = 6, scale = 2)
+	private Double preco;
 	
 	@ManyToOne
 	private Especialidade especialidade;
