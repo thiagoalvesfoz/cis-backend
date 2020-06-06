@@ -1,0 +1,68 @@
+package br.uniamerica.cis.controller.controllers;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.uniamerica.cis.controller.dto.ConsultaDTO;
+import br.uniamerica.cis.controller.dto.input.ConsultaInput;
+import br.uniamerica.cis.model.entity.Consulta;
+import br.uniamerica.cis.model.service.ConsultaService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+
+@Api("Consulta")
+@RestController
+@RequestMapping("/consultas")
+@RequiredArgsConstructor
+public class ConsultaController {
+	
+	private final ConsultaService service;
+	private final ModelMapper modelMapper;
+	
+	@ApiOperation("Cria uma nova consulta")
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public ConsultaDTO create(@RequestBody ConsultaInput dto) {		
+		Consulta consulta = service.createConsulta(toEntity(dto));		
+		return toModel(consulta);
+	}
+	
+	@ApiOperation("Lista todas as consultas marcadas")
+	@GetMapping
+	@ResponseStatus(HttpStatus.OK)
+	public List<ConsultaDTO> All() {
+		return toCollectionModel(service.findAllConsultas());
+	}
+	
+	@ApiOperation("busca uma consulta marcada")
+	@GetMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public ConsultaDTO one(@PathVariable Long id) {
+		return toModel(service.findConsultaById(id));
+	}
+	
+
+	private Consulta toEntity(ConsultaInput dto) {
+		return modelMapper.map(dto, Consulta.class);
+	}
+	
+	private ConsultaDTO toModel(Consulta entity) {
+		return modelMapper.map(entity, ConsultaDTO.class);
+	}
+	
+	private List<ConsultaDTO> toCollectionModel(List<Consulta> list) {
+		return list.stream().map(this::toModel).collect(Collectors.toList());
+	}
+	
+}
