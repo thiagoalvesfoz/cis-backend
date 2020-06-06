@@ -1,5 +1,8 @@
 package br.uniamerica.cis.model.entity;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +23,9 @@ public class Servico {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private String descricao;
+	
+	@Column(scale = 2, precision = 6)
+	private BigDecimal preco;
 	
 	@ManyToOne
 	private Especialidade especialidade;

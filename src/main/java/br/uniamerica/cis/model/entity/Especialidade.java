@@ -3,6 +3,7 @@ package br.uniamerica.cis.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,21 +12,19 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Especialidade {
 	
 	@Id
-	@Setter
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Setter
 	private String nome;	
 	
 	@JsonIgnore
@@ -34,7 +33,7 @@ public class Especialidade {
 	// vários profissionais podem ter uma especialidade em comum
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "especialidade")
+	@OneToMany(mappedBy = "especialidade", cascade = CascadeType.ALL)
 	private List<Servico> servicos = new ArrayList<>();
 	
 	public Especialidade(String nome) {
