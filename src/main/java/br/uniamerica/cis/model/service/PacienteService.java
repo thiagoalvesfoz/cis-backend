@@ -8,4 +8,6 @@ public interface PacienteService {
 	Paciente save(Paciente paciente);
 	List<Paciente> findAll();
 	Paciente findById(Long id);
+	Paciente upgradePaciente(Long id, Paciente entity);
+	void delete(Long id);
 }

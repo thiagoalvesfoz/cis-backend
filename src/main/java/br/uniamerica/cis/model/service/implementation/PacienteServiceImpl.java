@@ -37,4 +37,35 @@ public class PacienteServiceImpl implements PacienteService {
 		return repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+
+	@Override
+	public Paciente upgradePaciente(Long id, Paciente upgraded) {
+		
+		var paciente = this.findById(id);
+		
+		if( !upgraded.getNome().equals( paciente.getNome() ))
+			paciente.setNome(upgraded.getNome());
+		
+		if( !upgraded.getSobrenome().equals( paciente.getSobrenome() ))
+			paciente.setSobrenome(upgraded.getSobrenome());
+		
+		if( !upgraded.getSexo().equals( paciente.getSexo() ))
+			paciente.setSexo(upgraded.getSexo());
+		
+		if( !upgraded.getDataNascimento().equals( paciente.getDataNascimento() ))
+			paciente.setDataNascimento(upgraded.getDataNascimento());		
+
+		paciente.setApelido(upgraded.getApelido());
+		paciente.setEndereco(upgraded.getEndereco());
+		paciente.setTelefone(upgraded.getTelefone());
+		paciente.setImgUrl(upgraded.getImgUrl());		
+		
+		return repository.save(paciente);
+	}
+
+	@Override
+	public void delete(Long id) {		
+		var paciente = this.findById(id);
+		repository.delete(paciente);		
+	}
 }
