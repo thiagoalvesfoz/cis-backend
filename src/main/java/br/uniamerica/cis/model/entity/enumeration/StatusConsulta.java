@@ -1,6 +1,6 @@
 package br.uniamerica.cis.model.entity.enumeration;
 
-public enum StatusAgendamento {
+public enum StatusConsulta {
 	AGENDADO,
 	NO_LOCAL,
 	ATRASADO,
