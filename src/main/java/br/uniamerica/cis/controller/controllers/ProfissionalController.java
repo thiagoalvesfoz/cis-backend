@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.uniamerica.cis.controller.dto.ProfissionalDTO;
 import br.uniamerica.cis.controller.dto.ProfissionalShortDTO;
 import br.uniamerica.cis.controller.dto.input.ProfissionalInput;
+import br.uniamerica.cis.controller.dto.input.ProfissionalUpgradeInput;
 import br.uniamerica.cis.model.entity.Profissional;
 import br.uniamerica.cis.model.service.ProfissionalService;
 import io.swagger.annotations.Api;
@@ -64,9 +66,17 @@ public class ProfissionalController {
 		return toModel(profissional);
 	}
 	
+	@ApiOperation("Atualiza informações do profissional")
+	@PutMapping("/{id}")
+	public EntityModel<ProfissionalDTO> upgrade(@PathVariable Long id,
+			@Valid @RequestBody ProfissionalUpgradeInput dto) {
+		
+		return toModel(service.upgrade(id, toEntity(dto)));
+	}
+	
 	
 	///conversões
-	private Profissional toEntity(ProfissionalInput entityDto) {
+	private Profissional toEntity(Object entityDto) {
 		return modelMapper.map(entityDto, Profissional.class);
 	}
 	

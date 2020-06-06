@@ -9,5 +9,6 @@ public interface ProfissionalService {
 	Profissional save(Profissional profissional);
 	List<Profissional> findAll();
 	Profissional findById(Long id);
+	Profissional upgrade(Long id, Profissional entity);
 
 }

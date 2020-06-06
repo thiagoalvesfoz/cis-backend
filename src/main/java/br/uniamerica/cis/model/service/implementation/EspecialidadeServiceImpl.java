@@ -32,8 +32,9 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
 
 	@Override
 	public Especialidade findById(Long id) {
-		return repository.findById(id)
-				.orElseThrow(()-> new ResourceNotFoundException(id));
+		return repository
+				.findById(id)
+				.orElseThrow(()-> new ResourceNotFoundException("Especialidade não encontrada"));
 	}
 	
 	@Override

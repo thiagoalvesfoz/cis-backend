@@ -10,6 +10,7 @@ import br.uniamerica.cis.model.entity.Usuario;
 import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
 import br.uniamerica.cis.model.exception.BusinessRuleException;
 import br.uniamerica.cis.model.exception.ResourceNotFoundException;
+import br.uniamerica.cis.model.service.ClinicaService;
 import br.uniamerica.cis.model.service.PessoaService;
 import br.uniamerica.cis.model.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	private final UsuarioRepository repository;
 	private final PessoaService pessoaService;
-	//private final ClinicaService clinicaService;
+	private final ClinicaService clinicaService;
 	
 	@Override
 	public List<Usuario> findAll() {
@@ -30,20 +31,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override	
 	public Usuario save(Usuario user) {
 		
-		// valida existencia da clinica
-		//clinicaService.findClinicById(user.getClinica().getId());
+		user.setId(null); //mudar configurações do model mapper para IDs
+		var instant = LocalDateTime.now();
 		
-		pessoaService.validateUserEmail(user.getUser().getEmail());	
+		this.validateUsuario(user);	
 		
-		user.getUser().setCreatedAt(LocalDateTime.now());		
-		user.setStatus(StatusUsuario.ATIVO);
-		
-		return repository.save(user);
+		user.getUser().setCreatedAt(instant);		
+		user.setStatus(StatusUsuario.ATIVO);		
+		user = repository.save(user); //não retorna a clínica
+		return this.getUser(user.getId());
 	}
 	
 	@Override
 	public Usuario getUser(Long id) {
-		return repository.findById(id).orElseThrow( () -> new ResourceNotFoundException(id));
+		return repository
+				.findById(id)
+				.orElseThrow( () -> new ResourceNotFoundException("Usuário não encontrado"));
 	}
 
 	@Override
@@ -77,6 +80,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 			
 		user.setStatus(StatusUsuario.valueOf(status));		
 		repository.save(user);
+	}
+	
+	
+	private void validateUsuario(Usuario user) {
+		clinicaService.findClinicById(user.getClinica().getId());		
+		//pessoaService.validateUserEmail(user.getUser().getEmail());	
 	}
 	
 	

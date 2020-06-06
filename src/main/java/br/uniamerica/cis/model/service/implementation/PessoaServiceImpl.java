@@ -34,7 +34,7 @@ public class PessoaServiceImpl  implements PessoaService {
 	@Override
 	public Pessoa getUser(Long id) {		
 		return repository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(id));
+				.orElseThrow(() -> new ResourceNotFoundException("Id do usuário não encontrado"));
 	}
 	
 	@Override
@@ -54,7 +54,7 @@ public class PessoaServiceImpl  implements PessoaService {
 	public Pessoa update(Long id, Pessoa updated) {
 		
 		Pessoa pessoa = repository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(id));
+				.orElseThrow(() -> new ResourceNotFoundException("Id " + id + " não encontrado"));
 		
 		if(updated.getNome() != null) 
 			pessoa.setNome(updated.getNome());

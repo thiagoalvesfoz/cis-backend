@@ -36,11 +36,5 @@ public class PessoaUserUpdate {
 	
 	@Size(max = 255)
 	private String imgUrl;
-
-	@Override
-	public String toString() {
-		return "PessoaUserUpdate [nome=" + nome + ", sobrenome=" + sobrenome + ", dataNascimento=" + dataNascimento
-				+ ", sexo=" + sexo + ", telefone=" + telefone + ", imgUrl=" + imgUrl + "]";
-	}	
 	
 }

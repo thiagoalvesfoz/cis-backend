@@ -37,7 +37,7 @@ public class ProfissionalServiceImpl implements ProfissionalService {
 			throw new BusinessRuleException("Não é possível cadastrar. CRM em uso");
 		
 		if(verifyEspecialidade.isEmpty())
-			throw new ResourceNotFoundException(idEspecialidade + " de Especialidade");
+			throw new ResourceNotFoundException("Especialidade não encontrada");
 
 		
 		profissional.setCreatedAt(LocalDateTime.now());
@@ -51,7 +51,28 @@ public class ProfissionalServiceImpl implements ProfissionalService {
 
 	@Override
 	public Profissional findById(Long id) {		
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		return repository
+				.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Profissional não encontrado"));
+	}
+
+	@Override
+	public Profissional upgrade(Long id, Profissional upgraded) {
+		
+		var profissional = this.findById(id);
+		var especialidade = espService.findById(upgraded.getEspecialidade().getId());
+		
+		profissional.setNome(upgraded.getNome());
+		profissional.setSobrenome(upgraded.getSobrenome());
+		profissional.setDataNascimento(upgraded.getDataNascimento());
+		profissional.setTelefone(upgraded.getTelefone());
+		profissional.setCrm(upgraded.getCrm());
+		profissional.getEspecialidade().setId(especialidade.getId());
+		
+		if(!upgraded.getImgUrl().equals(profissional.getImgUrl()))
+			profissional.setImgUrl(upgraded.getImgUrl());
+		
+		return repository.save(profissional);
 	}
 	
 }

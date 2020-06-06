@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.uniamerica.cis.controller.dto.ConsultaDTO;
 import br.uniamerica.cis.controller.dto.input.ConsultaInput;
 import br.uniamerica.cis.controller.dto.input.ConsultaStatusInput;
+import br.uniamerica.cis.controller.dto.input.ConsultaUpdateInput;
 import br.uniamerica.cis.model.entity.Consulta;
 import br.uniamerica.cis.model.service.ConsultaService;
 import io.swagger.annotations.Api;
@@ -62,8 +63,7 @@ public class ConsultaController {
 	@ApiOperation("Atualiza informações de uma consulta marcada")
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Long id, @Valid @RequestBody ConsultaInput dto) {
-		service.validateStatusConsulta(dto.getStatus());
+	public void update(@PathVariable Long id, @Valid @RequestBody ConsultaUpdateInput dto) {
 		service.updateConsulta(id, toEntity(dto));
 	}
 	
@@ -78,7 +78,7 @@ public class ConsultaController {
 	}
 	
 
-	private Consulta toEntity(ConsultaInput dto) {
+	private Consulta toEntity(Object dto) {
 		return modelMapper.map(dto, Consulta.class);
 	}
 	

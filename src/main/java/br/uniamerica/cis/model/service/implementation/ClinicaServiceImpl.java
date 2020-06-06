@@ -32,14 +32,16 @@ public class ClinicaServiceImpl implements ClinicaService {
 	
 	@Override
 	public Clinica findById(Long id) {
-		return repository.findById(id).orElseThrow( () -> new ResourceNotFoundException(id));
+		return repository.findById(id)
+				.orElseThrow( () -> new ResourceNotFoundException("Id da clinica não encontrado"));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public void findClinicById(Long id) {				
 		Optional<Clinica> clinica = repository.findById(id);		
-		if(!clinica.isPresent()) throw new ResourceNotFoundException(id);		
+		if(!clinica.isPresent()) 
+			throw new ResourceNotFoundException("Id da clinica não encontrado");		
 	}
 
 

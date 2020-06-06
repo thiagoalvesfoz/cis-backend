@@ -15,11 +15,12 @@ import br.uniamerica.cis.model.entity.enumeration.StatusConsulta;
 import br.uniamerica.cis.model.exception.BusinessRuleException;
 import br.uniamerica.cis.model.exception.ResourceNotFoundException;
 import br.uniamerica.cis.model.service.ConsultaService;
+import br.uniamerica.cis.model.service.LogService;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ConsultaServiceImpl implements ConsultaService {
+public class ConsultaServiceImpl implements ConsultaService, LogService {
 	
 	private final ConsultaRepository repository;
 	private final PacienteRepository pacienteRepository;
@@ -27,11 +28,14 @@ public class ConsultaServiceImpl implements ConsultaService {
 	private final ServicoRepository servicoRepository;
 
 	@Override
-	public Consulta createConsulta(Consulta entity) {	
+	public Consulta createConsulta(Consulta entity) {
+		
+		var instant = LocalDateTime.now();
 		
 		this.valideIdsConsulta(entity);
-		entity.setCreateFrom("Thiago Alves");
-		entity.setCreateAt(LocalDateTime.now());
+		entity.setCreateFrom("Thiago Alves");		
+		entity.setCreateAt(instant);
+		
 		return repository.save(entity);
 	}
 	
@@ -44,7 +48,7 @@ public class ConsultaServiceImpl implements ConsultaService {
 	@Override
 	public Consulta findConsultaById(Long id) {
 		return repository.findById(id).orElseThrow( 
-				() -> new ResourceNotFoundException(id) );
+				() -> new ResourceNotFoundException("Id da consulta não encontrado.") );
 	}
 	
 	@Transactional(readOnly = true)
@@ -56,15 +60,15 @@ public class ConsultaServiceImpl implements ConsultaService {
 		
 		pacienteRepository.findById(idPaciente)
 			.orElseThrow( () -> new ResourceNotFoundException(
-					idPaciente + " do paciente nao encontrado"));
+				"Id do paciente nao encontrado"));
 	
 		profissionalRepository.findById(idProfissional)
 			.orElseThrow( () -> new ResourceNotFoundException(
-					idProfissional + " do profissional nao encontrado"));
+					"Id do profissional nao encontrado"));
 	
 		servicoRepository.findById(idConsulta)
 			.orElseThrow( () -> new ResourceNotFoundException(
-					idConsulta + " da consulta não encontrado"));
+					"Id da consulta não encontrado"));
 	}
 	
 	
@@ -89,9 +93,6 @@ public class ConsultaServiceImpl implements ConsultaService {
 		
 		if(!updated.getObservação().equals(consulta.getObservação()))
 			consulta.setObservação(updated.getObservação());
-		
-		if(!updated.getStatus().equals(consulta.getStatus()))
-			consulta.setStatus(updated.getStatus());
 		
 		if(!updated.getDataInicio().equals(consulta.getDataInicio()))
 			consulta.setDataInicio(updated.getDataInicio());

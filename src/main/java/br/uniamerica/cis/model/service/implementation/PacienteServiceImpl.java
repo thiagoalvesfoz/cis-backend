@@ -35,7 +35,7 @@ public class PacienteServiceImpl implements PacienteService {
 	@Override
 	public Paciente findById(Long id) {		
 		return repository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(id));
+				.orElseThrow(() -> new ResourceNotFoundException("Id do paciente não encontrado"));
 	}
 
 	@Override

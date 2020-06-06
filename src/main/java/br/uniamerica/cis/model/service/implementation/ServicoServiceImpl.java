@@ -30,7 +30,9 @@ public class ServicoServiceImpl implements ServicoService {
 
 	@Override
 	public Servico findServiceById(Long id) {
-		return repository.findById(id).orElseThrow( () -> new ResourceNotFoundException(id) );
+		return repository
+				.findById(id)
+				.orElseThrow( () -> new ResourceNotFoundException("Serviço nao encontrado") );
 	}
 	
 	@Override
