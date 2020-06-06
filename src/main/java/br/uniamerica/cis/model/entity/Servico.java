@@ -1,5 +1,7 @@
 package br.uniamerica.cis.model.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +24,8 @@ public class Servico {
 	private Long id;
 	private String nome;
 	
-	@Column(precision = 6, scale = 2)
-	private Double preco;
+	@Column(scale = 2, precision = 6)
+	private BigDecimal preco;
 	
 	@ManyToOne
 	private Especialidade especialidade;
