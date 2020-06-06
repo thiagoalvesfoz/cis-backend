@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter @Setter
 public class ConsultaDTO {	
 	
+	private Long id;
 	private String observação;
 	private String status;
 	private String createFrom;	

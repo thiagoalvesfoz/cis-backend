@@ -2,7 +2,6 @@ package br.uniamerica.cis.controller.dto.input;
 
 import java.time.LocalDateTime;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -10,8 +9,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ConsultaInput {
-	
+public class ConsultaUpdateInput {
+
+
 	private String observação;	
 	
 	@NotBlank
@@ -22,18 +22,5 @@ public class ConsultaInput {
 	
 	@NotNull
 	private LocalDateTime dataFim;
-	
-	@NotNull
-	private Long servicoId;
-	
-	@Valid @NotNull
-	private PacienteConsultaInput paciente;	
-	
-	@Valid @NotNull
-	private ProfissionalConsultaInput profissional;
-	
-	
-	
-	
 
 }

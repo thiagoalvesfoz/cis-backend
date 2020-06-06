@@ -12,5 +12,11 @@ public interface ConsultaService {
 
 	Consulta findConsultaById(Long id);
 	
+	void validateStatusConsulta(String status);
+
+	Consulta updateConsulta(Long id, Consulta entity);
+
+	Consulta updateStatus(Long id, String status);
+	
 
 }

@@ -33,16 +33,16 @@ public class Consulta {
 	@Column(nullable = false)
 	private LocalDateTime dataFim;
 	
-	@Column(nullable = false)
 	private String observação;
 	
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusConsulta status;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String createFrom;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDateTime createAt;
 	private LocalDateTime lastChange;
 	
