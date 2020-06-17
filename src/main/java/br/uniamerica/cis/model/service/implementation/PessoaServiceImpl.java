@@ -39,13 +39,12 @@ public class PessoaServiceImpl  implements PessoaService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public void validateUserEmail(String email) {		
+	public void validateUserEmail(String email) {
 		
 		Optional<Pessoa> existente = repository.findByEmail(email);		
 		
-		if(existente.isPresent()) {
+		if(existente.isPresent())
 			throw new BusinessRuleException("Já existe um usuário com este e-mail.");
-		}
 	}
 
 
@@ -53,8 +52,7 @@ public class PessoaServiceImpl  implements PessoaService {
 	@Transactional
 	public Pessoa update(Long id, Pessoa updated) {
 		
-		Pessoa pessoa = repository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Id " + id + " não encontrado"));
+		Pessoa pessoa = this.getUser(id);
 		
 		if(updated.getNome() != null) 
 			pessoa.setNome(updated.getNome());

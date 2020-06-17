@@ -33,7 +33,7 @@ public class ConsultaServiceImpl implements ConsultaService, LogService {
 		var instant = LocalDateTime.now();
 		
 		this.valideIdsConsulta(entity);
-		entity.setCreateFrom("Thiago Alves");		
+		entity.setCreateFrom("Thiago Alves"); //	
 		entity.setCreateAt(instant);
 		
 		return repository.save(entity);

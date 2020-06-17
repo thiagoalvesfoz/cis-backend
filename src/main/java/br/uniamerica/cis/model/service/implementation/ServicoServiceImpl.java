@@ -25,7 +25,8 @@ public class ServicoServiceImpl implements ServicoService {
 	@Override
 	public Servico save(Servico entity) {
 		if(entity.getId() != null) entity.setId(null);
-		return repository.save(entity);
+		repository.save(entity);
+		return this.findServiceById(entity.getId());
 	}
 
 	@Override

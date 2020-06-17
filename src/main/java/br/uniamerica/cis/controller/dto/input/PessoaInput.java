@@ -35,6 +35,7 @@ public class PessoaInput {
 	private String telefone;
 
 	@Email @Size(max = 60)
+	@NotBlank
 	private String email;
 	
 	@Size(max = 255)

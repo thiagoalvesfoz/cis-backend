@@ -17,12 +17,12 @@ import lombok.RequiredArgsConstructor;
 public class PacienteServiceImpl implements PacienteService {
 	
 	private final PacienteRepository repository;
-	private final PessoaService userService;
+	private final PessoaService pessoaService;
 	
 	@Override
 	public Paciente save(Paciente paciente) {
 		
-		userService.validateUserEmail(paciente.getEmail());
+		pessoaService.validateUserEmail(paciente.getEmail());
 		paciente.setCreatedAt(LocalDateTime.now());
 		return repository.save(paciente);
 	}

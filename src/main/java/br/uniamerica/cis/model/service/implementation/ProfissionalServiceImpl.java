@@ -21,14 +21,14 @@ import lombok.RequiredArgsConstructor;
 public class ProfissionalServiceImpl implements ProfissionalService {	
 
 	private final ProfissionalRepository repository;
-	private final PessoaService usuarioService;
+	private final PessoaService pessoaService;
 	private final EspecialidadeService espService;
 	
 	@Override
 	public Profissional save(Profissional profissional) {
 		
 		Long idEspecialidade = profissional.getEspecialidade().getId();		
-		usuarioService.validateUserEmail(profissional.getEmail());
+		pessoaService.validateUserEmail(profissional.getEmail());
 		
 		Optional<Profissional> verifyCrm = repository.findByCrm(profissional.getCrm());
 		Optional<Especialidade> verifyEspecialidade = espService.getEspecialidadeById(idEspecialidade);

@@ -37,7 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		this.validateUsuario(user);	
 		
 		user.getUser().setCreatedAt(instant);		
-		user.setStatus(StatusUsuario.ATIVO);		
+		user.setStatus(StatusUsuario.ATIVO);	
 		user = repository.save(user); //não retorna a clínica
 		return this.getUser(user.getId());
 	}
@@ -76,7 +76,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		if(!status.equals(StatusUsuario.ATIVO.name()) 
 		&& !status.equals(StatusUsuario.INATIVO.name()))
-			throw new BusinessRuleException("O status é inválido.");		
+			throw new BusinessRuleException("O status é inválido.");
+		
+		else if (status.equals(user.getStatus().name()))
+			return;
 			
 		user.setStatus(StatusUsuario.valueOf(status));		
 		repository.save(user);
