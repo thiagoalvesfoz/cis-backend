@@ -72,6 +72,7 @@ public class ConsultaServiceImpl implements ConsultaService, LogService {
 	}
 	
 	
+	@Deprecated
 	@Override
 	public void validateStatusConsulta(String status) {
 		

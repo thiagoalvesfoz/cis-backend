@@ -40,7 +40,7 @@ public class ConsultaController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ConsultaDTO create(@Valid @RequestBody ConsultaInput dto) {
 		
-		service.validateStatusConsulta(dto.getStatus());		
+		//service.validateStatusConsulta(dto.getStatus());		
 		Consulta consulta = service.createConsulta(toEntity(dto));	
 		
 		return toModel(consulta);
@@ -70,10 +70,9 @@ public class ConsultaController {
 	@ApiOperation("Atualiza o status de uma consulta marcada")
 	@PutMapping("/{id}/status")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateStatusConsulta(@PathVariable Long id, 
-											@Valid @RequestBody ConsultaStatusInput body) {		
+	public void updateStatusConsulta(@PathVariable Long id, @Valid @RequestBody ConsultaStatusInput body) {		
 		var status = body.getStatus();		
-		service.validateStatusConsulta(status);			
+		//service.validateStatusConsulta(status);			
 		service.updateStatus(id, status);
 	}
 	
