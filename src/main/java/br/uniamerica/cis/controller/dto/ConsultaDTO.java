@@ -13,7 +13,7 @@ public class ConsultaDTO {
 	private Long id;
 	private String observação;
 	private String status;
-	private String createFrom;	
+	//private String createFrom;	
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, 
 	pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")

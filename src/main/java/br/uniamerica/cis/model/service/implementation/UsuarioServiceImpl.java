@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import br.uniamerica.cis.infrastructure.repository.UsuarioRepository;
 import br.uniamerica.cis.model.entity.Usuario;
 import br.uniamerica.cis.model.entity.enumeration.StatusUsuario;
-import br.uniamerica.cis.model.exception.BusinessRuleException;
 import br.uniamerica.cis.model.exception.ResourceNotFoundException;
 import br.uniamerica.cis.model.service.ClinicaService;
 import br.uniamerica.cis.model.service.PessoaService;
@@ -38,7 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		user.getUser().setCreatedAt(instant);		
 		user.setStatus(StatusUsuario.ATIVO);	
-		user = repository.save(user); //não retorna a clínica
+		user = repository.save(user); 
 		return this.getUser(user.getId());
 	}
 	
@@ -54,7 +53,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		Usuario UsuarioExistente = this.getUser(id);
 		
-		if(atualizado.getSenha() != null) {
+		if(!atualizado.getSenha().equals(UsuarioExistente.getSenha())) {
 			UsuarioExistente.setSenha(atualizado.getSenha());
 			UsuarioExistente = repository.save(UsuarioExistente);			
 		}
@@ -72,13 +71,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public void updateStatus(Long id, String status) {
 		
-		var user = this.getUser(id);
+		var user = this.getUser(id);		
 		
-		if(!status.equals(StatusUsuario.ATIVO.name()) 
-		&& !status.equals(StatusUsuario.INATIVO.name()))
-			throw new BusinessRuleException("O status é inválido.");
-		
-		else if (status.equals(user.getStatus().name()))
+		if (status.equals(user.getStatus().name()))
 			return;
 			
 		user.setStatus(StatusUsuario.valueOf(status));		
@@ -88,7 +83,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	private void validateUsuario(Usuario user) {
 		clinicaService.findClinicById(user.getClinica().getId());		
-		//pessoaService.validateUserEmail(user.getUser().getEmail());	
+		pessoaService.validateUserEmail(user.getUser().getEmail());	
 	}
 	
 	

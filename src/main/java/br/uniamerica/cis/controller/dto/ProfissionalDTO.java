@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter @Setter
 public class ProfissionalDTO extends PessoaDTO {	
-	private Long crm;	
+	private String crm;	
 	private String especialidadeNome;
 }

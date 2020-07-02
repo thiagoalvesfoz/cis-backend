@@ -15,7 +15,7 @@ import lombok.Setter;
 public class ConsultaInput {
 	
 	private String observação;	
-	
+
 	@NotBlank
 	@ValueOfEnum(enumClass = StatusConsulta.class)
 	private String status;	
@@ -35,8 +35,4 @@ public class ConsultaInput {
 	@Valid @NotNull
 	private ProfissionalConsultaInput profissional;
 	
-	
-	
-	
-
 }

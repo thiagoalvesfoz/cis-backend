@@ -13,7 +13,7 @@ public class PacienteConsultaDTO {
 	private Long id;
 	private String nomeCompleto;
 	
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dataNascimento;
 	private String sexo;
 	private String telefone;

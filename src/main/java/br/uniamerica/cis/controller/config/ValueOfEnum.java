@@ -20,9 +20,11 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = ValueOfEnumValidator.class)
-public @interface ValueOfEnum {	
-    Class<? extends Enum<?>> enumClass();
-    String message() default "Não é valido.";
-    Class<?>[] groups() default {};
+public @interface ValueOfEnum {
+	
+    String message() default "Não é valido.";    
+    Class<?>[] groups() default {};    
     Class<? extends Payload>[] payload() default {};
+    
+    Class<? extends Enum<?>> enumClass();
 }

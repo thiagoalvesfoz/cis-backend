@@ -9,7 +9,7 @@ import lombok.Setter;
 public class ProfissionalUpgradeInput extends PessoaUserUpdate {
 	
 	@NotNull
-	private Long crm;
+	private String crm;
 	
 	@NotNull
 	private Long especialidadeId;

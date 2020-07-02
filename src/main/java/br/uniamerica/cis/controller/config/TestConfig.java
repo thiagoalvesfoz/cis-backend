@@ -96,27 +96,27 @@ public class TestConfig implements CommandLineRunner{
 		Profissional p1 = new Profissional("Vagner", "Silva", LocalDate.parse("1992-05-13"), "M", 
 				"977373267", "vagner@silva.com", null, 
 				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", 
-				null, null, 12345L);
+				null, null, "12345");
 		
 		Profissional p2 = new Profissional("Milena", "Lins", LocalDate.parse("1994-03-20"), "F", 
 				"9777888888", "milena@lins.com", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 7775L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, "7775");
 		
 		Profissional p3 = new Profissional("Jefferson", "Schipitoski", LocalDate.parse("1985-08-15"), "M", 
 				"9797979797", "Jefferson@schipitoski.com", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 2223L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, "2223");
 		
 		Profissional p4 = new Profissional("Brandow", "Buenos", LocalDate.parse("1991-11-03"), "M", 
 				"9745288823", "brandowbuenos@hotmail.com", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 32115L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, "32115");
 		
 		Profissional p5 = new Profissional("William", "Will", LocalDate.parse("1989-06-12"), "M", 
 				"9885231558", "will_william@yahoo.com.br", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 988375L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, "988375");
 		
 		Profissional p6 = new Profissional("Luisa", "Mara", LocalDate.parse("1996-11-18"), "F", 
 				"98854433334", "luisamara96@hotmail.com", "akmtv@2020", 
-				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, 122225L);
+				"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg", null, null, "122225");
 		
 		pRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
 		

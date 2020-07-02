@@ -25,7 +25,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(BusinessRuleException.class)
 	public ResponseEntity<Object> handleBusinessError(BusinessRuleException ex, WebRequest request){
 		var status = HttpStatus.BAD_REQUEST;
-		var path = request.getDescription(false).substring(4); //try to do casting for ServletWebRequest
+		var path = request.getDescription(false).substring(4); //try casting for HttpServletRequest
 		var body = new ResponseApi(status.value(), Instant.now(), ex.getMessage(), path);
 		return super.handleExceptionInternal(ex, body, new HttpHeaders(), status, request);
 		

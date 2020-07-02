@@ -9,5 +9,5 @@ import br.uniamerica.cis.model.entity.Profissional;
 
 @Repository
 public interface ProfissionalRepository extends JpaRepository<Profissional, Long>{
-	Optional<Profissional> findByCrm(Long crm);
+	Optional<Profissional> findByCrm(String crm);
 }

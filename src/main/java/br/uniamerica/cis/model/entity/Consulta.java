@@ -42,6 +42,7 @@ public class Consulta {
 	@Column(nullable = true)
 	private String createFrom;
 	
+	//@CreationTimestamp     -> utilizar
 	@Column(nullable = true)
 	private LocalDateTime createAt;
 	private LocalDateTime lastChange;

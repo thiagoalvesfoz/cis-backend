@@ -24,6 +24,8 @@ import br.uniamerica.cis.model.entity.Consulta;
 import br.uniamerica.cis.model.service.ConsultaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 
 @Api("Consulta")
@@ -39,10 +41,8 @@ public class ConsultaController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ConsultaDTO create(@Valid @RequestBody ConsultaInput dto) {
-		
-		//service.validateStatusConsulta(dto.getStatus());		
-		Consulta consulta = service.createConsulta(toEntity(dto));	
-		
+			
+		Consulta consulta = service.createConsulta(toEntity(dto));		
 		return toModel(consulta);
 	}
 	
@@ -68,12 +68,13 @@ public class ConsultaController {
 	}
 	
 	@ApiOperation("Atualiza o status de uma consulta marcada")
+	@ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Status atualizado com sucesso"),
+    })
 	@PutMapping("/{id}/status")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateStatusConsulta(@PathVariable Long id, @Valid @RequestBody ConsultaStatusInput body) {		
-		var status = body.getStatus();		
-		//service.validateStatusConsulta(status);			
-		service.updateStatus(id, status);
+	public void updateStatusConsulta(@PathVariable Long id, @Valid @RequestBody ConsultaStatusInput body) {					
+		service.updateStatus(id, body.getStatus());
 	}
 	
 

@@ -24,6 +24,8 @@ import br.uniamerica.cis.model.entity.Usuario;
 import br.uniamerica.cis.model.service.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 import lombok.RequiredArgsConstructor;
 
 @Api("Usuários")
@@ -71,6 +73,9 @@ public class UsuarioController {
 	}
 	
 	@ApiOperation("Altera o status do usuário no sistema")
+	@ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Status atualizado com sucesso"),
+    })
 	@PutMapping("/{id}/atualizar-status")
 	@ResponseStatus(HttpStatus.NO_CONTENT) 
 	private void atualizarStatus(@PathVariable Long id, 

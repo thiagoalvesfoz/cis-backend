@@ -30,10 +30,9 @@ public class ConsultaServiceImpl implements ConsultaService, LogService {
 	@Override
 	public Consulta createConsulta(Consulta entity) {
 		
-		var instant = LocalDateTime.now();
-		
 		this.valideIdsConsulta(entity);
-		entity.setCreateFrom("Thiago Alves"); //	
+		
+		var instant = LocalDateTime.now();		
 		entity.setCreateAt(instant);
 		
 		return repository.save(entity);

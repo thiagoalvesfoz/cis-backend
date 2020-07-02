@@ -16,7 +16,7 @@ public class PessoaDTO {
 	private String nome;
 	private String sobrenome;
 	
-	@JsonFormat(pattern = "dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dataNascimento;
 	private String sexo;
 	private String telefone;	

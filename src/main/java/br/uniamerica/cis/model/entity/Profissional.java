@@ -18,7 +18,7 @@ import lombok.Setter;
 public class Profissional extends Pessoa {
 	
 	@Column(nullable = false)
-	private Long crm;
+	private String crm;
 	
 	@ManyToOne
 	@JoinColumn(name = "especialidade_id", nullable = true)	
@@ -35,7 +35,7 @@ public class Profissional extends Pessoa {
 			String avatar,
 			StatusUsuario status,
 			Endereco endereco,
-			Long crm) {
+			String crm) {
 		
 		super(nome, sobrenome, dataNascimento, sexo, telefone, email,password, avatar, endereco, status);
 		this.crm = crm;
